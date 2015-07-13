@@ -1,9 +1,8 @@
-<ion-view view-title="Before/After">
-  <ion-content>
- 
+<ion-view view-title="Before/After" >
+   <ion-content class="has-header padding"  ng-controller="imgController">
 
    <div class="list">
-     <label class="item item-input">
+      <label class="item item-input">
         <input type="text" placeholder="Title">
       </label>
       <label class="item item-input">
@@ -17,7 +16,7 @@
       <label class="item item-input">
         <input type="text" placeholder="Zip">
       </label>
-
+  </div>
       <div class="list">
           <div class="input-label">
             Most Related Page
@@ -29,19 +28,18 @@
            
       </div>
     </div>
-</div>
 
-
-<button class="button button-block button-assertive">
-  Add Photos
-</button>
-
-
-<button class="button button-block button-positive">
-  Send
-</button>
-
-
-
+      <ion-scroll direction="x" style="height:200px; min-height: 200px; overflow: scroll; white-space: nowrap;">
+       <img ng-repeat="image in images" ng-src="{{urlForImage(image)}}" style="height:200px; padding: 5px 5px 5px 5px;">
+    </ion-scroll>
+<br><br>
+    <button class="button button-full button-energized" ng-click="addMedia()">
+      Add image
+    </button>
+  
+    
+  
+  
+  
   </ion-content>
 </ion-view>
