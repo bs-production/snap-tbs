@@ -1,0 +1,22 @@
+/* Empty. Add your own CSS if you like */
+.mdl-card {
+	width:auto;
+}
+
+  .demo-card-wide > .mdl-card__title {
+    color: #fff;
+    height: 176px;
+    background: url('../img/hero.png') center / cover;
+  }
+
+
+ .demo-card-square.mdl-card {
+    width: 50%;
+    height: 320px;
+    float:left;
+  }
+  .demo-card-square > .mdl-card__title {
+    color: #fff;
+    background:
+      url('../assets/demos/dog.png') bottom right 15% no-repeat #645EC2;
+  }
