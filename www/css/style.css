@@ -20,3 +20,17 @@
     background:
       url('../assets/demos/dog.png') bottom right 15% no-repeat #645EC2;
   }
+
+
+   .demo-card-event.mdl-card {
+    width: 50%;
+    height: 256px;
+    background: #3E4EB8;
+  }
+  .demo-card-event > .mdl-card__actions {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  .demo-card-event > .mdl-card__title,
+  .demo-card-event > .mdl-card__actions > .mdl-button {
+    color: #fff !important;
+  }

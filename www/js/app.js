@@ -1,10 +1,12 @@
+
+
 // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova' , 'services.serve'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -18,6 +20,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       StatusBar.styleDefault();
     }
   });
+})
+
+.config(function($compileProvider){
+  $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile|content):|data:image\//);
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -34,7 +40,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
     url: "/newsletter",
     views: {
       'menuContent': {
-        templateUrl: "templates/newsletter.html"
+        templateUrl: "templates/newsletter.html",
+         controller: 'PostsCtrl'
       }
     }
   })
@@ -63,7 +70,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
     views: {
       'menuContent': {
         templateUrl: "templates/photogallery.html",
-        //controller: 'PlaylistCtrl'
+        controller: 'PostsCtrl'
       }
     }
   });

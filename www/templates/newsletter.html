@@ -1,27 +1,9 @@
 <ion-view view-title="Newsletters">
-  <ion-content>
- 
-<div class="list">
-
- 
-
-  <a class="item" href="#">
-    Spring 2015
-  </a>
-
-   <a class="item" href="#">
-    Spring 2015
-  </a>
-
-    <a class="item" href="#">
-    Spring 2015
-    
-  </a>
-    <a class="item" href="#">
-    Spring 2015
-  </a>
-
-</div>
-
+   <ion-content class="padding">
+    <ion-list>
+      <ion-item  class="item-thumbnail-left" ng-repeat="badge in badges">
+        <img ng-src="{{badge.icon_url}}">{{badge.name}}
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

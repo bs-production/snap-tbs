@@ -1,8 +1,7 @@
-angular.module('services', [])
- 
-.factory('MyFactory', function(){
- 
-});
+angular.module('starter')
+
+
+angular.module('services.serve', [])
  
 .factory('FileService', function() {
   var images;
@@ -58,7 +57,7 @@ angular.module('services', [])
       allowEdit: false,
       encodingType: Camera.EncodingType.JPEG,
       popoverOptions: CameraPopoverOptions,
-      saveToPhotoAlbum: false
+      saveToPhotoAlbum: true
     };
   }
  

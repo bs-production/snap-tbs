@@ -43,12 +43,14 @@ angular.module('starter.controllers', ['ngCordova'])
 
  
 .controller('imgController', function($scope, $cordovaCamera, $cordovaDevice, 
- $cordovaFile, $ionicPlatform,  $ionicActionSheet) {
+ $cordovaFile, $ionicPlatform,  $ionicActionSheet, ImageService, FileService) {
  
-  // $ionicPlatform.ready(function() {
-  //   $scope.images = FileService.images();
-  //  $scope.$apply();
-  // });
+ //controller for before/after 
+ 
+  $ionicPlatform.ready(function() {
+      $scope.images = FileService.images();
+      $scope.$apply();
+   });
  
   $scope.urlForImage = function(imageName) {
     var trueOrigin = cordova.file.dataDirectory + imageName;
@@ -78,7 +80,21 @@ angular.module('starter.controllers', ['ngCordova'])
   
  })
 
- 
+
+
+.controller("PostsCtrl", function($scope, $http) {
+   //Get profile information
+  $http.get('https://teamtreehouse.com/chalkers.json').
+  success(function(data, status, headers, config) {
+    // this callback will be called asynchronously
+    // when the response is available
+    $scope.badges = data.badges;
+  }).
+  error(function(data, status, headers, config) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+  });
+}) 
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 });
