@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "material-design-lite": "~1.0.0",
-    "ngCordova": "~0.1.17-alpha"
+    "ngCordova": "~0.1.17-alpha",
+    "angularfire": "~1.1.2"
   }
 }

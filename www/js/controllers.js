@@ -1,6 +1,6 @@
-angular.module('starter.controllers', ['ngCordova'])
+angular.module('starter.controllers', ['ngCordova' , 'firebase'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $http, $ionicModal, $timeout) {
   
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -15,7 +15,7 @@ angular.module('starter.controllers', ['ngCordova'])
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
-  }).then(function(modal) {
+  }).then(function(modal) {  
     $scope.modal = modal;
   });
 
@@ -29,9 +29,16 @@ angular.module('starter.controllers', ['ngCordova'])
     $scope.modal.show();
   };
 
+
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
+     $http.get('https://api.teambasementsystems.com/tbsauth/').
+        success(function(data, status, headers, config) {
+          // this callback will be called asynchronously
+          // when the response is available
+          $scope.badges = data.badges;
+        });
 
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
@@ -52,10 +59,11 @@ angular.module('starter.controllers', ['ngCordova'])
       $scope.$apply();
    });
  
-  $scope.urlForImage = function(imageName) {
-    var trueOrigin = cordova.file.dataDirectory + imageName;
-    return trueOrigin;
-  }
+ $scope.urlForImage = function(imageName) {
+  var name = imageName.substr(imageName.lastIndexOf('/') + 1);
+  var trueOrigin = cordova.file.dataDirectory + name;
+  return trueOrigin;
+}
  
   $scope.addMedia = function() {
     $scope.hideSheet = $ionicActionSheet.show({
@@ -63,7 +71,7 @@ angular.module('starter.controllers', ['ngCordova'])
         { text: 'Take photo' },
         { text: 'Photo from library' }
       ],
-      titleText: 'Add images',
+      titleText: 'Upload Images',
       cancelText: 'Cancel',
       buttonClicked: function(index) {
         $scope.addImage(index);
@@ -80,6 +88,77 @@ angular.module('starter.controllers', ['ngCordova'])
   
  })
 
+
+.controller("FirebaseController", function($scope, $state, $firebaseAuth) {
+
+    var fbAuth = $firebaseAuth(fb);
+
+    $scope.login = function(username, password) {
+        fbAuth.$authWithPassword({
+            email: username,
+            password: password
+        }).then(function(authData) {
+            $state.go("app.photogallery");
+        }).catch(function(error) {
+            console.error("ERROR: " + error);
+        });
+    }
+
+    $scope.register = function(username, password) {
+        fbAuth.$createUser({email: username, password: password}).then(function(userData) {
+            return fbAuth.$authWithPassword({
+                email: username,
+                password: password
+            });
+        }).then(function(authData) {
+            $state.go("app.photogallery");
+        }).catch(function(error) {
+            console.error("ERROR: " + error);
+        });
+    }
+
+})
+
+//upload to firebase
+.controller("SecureController", function($scope, $state, $ionicHistory, 
+  $firebaseAuth , $firebaseArray, $cordovaCamera) {
+
+    $ionicHistory.clearHistory();
+
+    $scope.images = [];
+
+   var fbAuth = fb.getAuth();
+      if(fbAuth) {
+       var userReference = fb.child("users/" + fbAuth.uid);
+         var syncArray = $firebaseArray(userReference.child("images"));
+         $scope.images = syncArray;
+    } 
+    else {
+       $state.go("app.firebase");
+      }
+
+    $scope.upload = function() {
+        var options = {
+            quality : 75,
+            destinationType : Camera.DestinationType.DATA_URL,
+            sourceType : Camera.PictureSourceType.CAMERA,
+            allowEdit : true,
+            encodingType: Camera.EncodingType.JPEG,
+            popoverOptions: CameraPopoverOptions,
+            targetWidth: 500,
+            targetHeight: 500,
+            saveToPhotoAlbum: false
+        };
+        $cordovaCamera.getPicture(options).then(function(imageData) {
+            syncArray.$add({image: imageData}).then(function() {
+                alert("Image has been uploaded");
+            });
+        }, function(error) {
+            console.error(error);
+        });
+    }
+
+})
 
 
 .controller("PostsCtrl", function($scope, $http) {

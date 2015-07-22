@@ -1,7 +1,4 @@
-angular.module('starter')
-
-
-angular.module('services.serve', [])
+angular.module('services.serve', ['ngCordova'])
  
 .factory('FileService', function() {
   var images;
