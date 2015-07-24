@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ngCordova' , 'firebase'])
+angular.module('starter.controllers', ['ngCordova', 'firebase'])
 
 .controller('AppCtrl', function($scope, $http, $ionicModal, $timeout) {
   
@@ -32,20 +32,35 @@ angular.module('starter.controllers', ['ngCordova' , 'firebase'])
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-     $http.get('https://api.teambasementsystems.com/tbsauth/').
-        success(function(data, status, headers, config) {
+    //console.log('Doing login', $scope.loginData);
+     $http({
+           method: 'POST',
+           url: 'https://api.teambasementsystems.com/tbsauth/',
+           params: { 
+                'email' :   $scope.loginData.email,
+                'password': $scope.loginData.password
+               }
+        })
+
+      .success(function(data, status, headers, config) {
           // this callback will be called asynchronously
           // when the response is available
-          $scope.badges = data.badges;
+          $state.go("app.photogallery");
+        }). 
+      error(function(data, status, headers, config) {
+          // called asynchronously if an error occurs
+          // or server returns response with an error status.
+           alert("fail");
         });
 
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
+     $timeout(function() {
+       $scope.closeLogin();
+     }, 1000);
   };
+  
+
 })
 
  
@@ -85,7 +100,7 @@ angular.module('starter.controllers', ['ngCordova' , 'firebase'])
       $scope.$apply();
     });
   }
-  
+ 
  })
 
 
@@ -147,7 +162,7 @@ angular.module('starter.controllers', ['ngCordova' , 'firebase'])
             popoverOptions: CameraPopoverOptions,
             targetWidth: 500,
             targetHeight: 500,
-            saveToPhotoAlbum: false
+            saveToPhotoAlbum: true
         };
         $cordovaCamera.getPicture(options).then(function(imageData) {
             syncArray.$add({image: imageData}).then(function() {
@@ -173,9 +188,9 @@ angular.module('starter.controllers', ['ngCordova' , 'firebase'])
     // called asynchronously if an error occurs
     // or server returns response with an error status.
   });
-}) 
-
-.controller('PlaylistCtrl', function($scope, $stateParams) {
 });
+
+
+
 
 
