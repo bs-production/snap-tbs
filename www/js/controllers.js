@@ -42,12 +42,14 @@ angular.module('starter.controllers', ['ngCordova', 'firebase'])
                }
         })
 
-      .success(function(data, status, headers, config) {
+      .success(function(data) {
           // this callback will be called asynchronously
           // when the response is available
+          alert(data.message);
           $state.go("app.photogallery");
         }). 
-      error(function(data, status, headers, config) {
+
+      error(function(data) {
           // called asynchronously if an error occurs
           // or server returns response with an error status.
            alert("fail");
