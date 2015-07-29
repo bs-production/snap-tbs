@@ -1,6 +1,6 @@
-angular.module('starter.controllers', ['ngCordova', 'firebase'])
+angular.module('starter.controllers', ['ngCordova'])
 
-.controller('AppCtrl', function($scope, $http, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $http,  $timeout) {
   
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -9,13 +9,19 @@ angular.module('starter.controllers', ['ngCordova', 'firebase'])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
   
-  // Form data for the login modal
+
+})
+
+
+.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $state) {
+  
+// Form data for the login modal
   $scope.loginData = {};
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
-  }).then(function(modal) {  
+  }).then(function(modal) {
     $scope.modal = modal;
   });
 
@@ -32,27 +38,31 @@ angular.module('starter.controllers', ['ngCordova', 'firebase'])
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
-    //console.log('Doing login', $scope.loginData);
+   // console.log('Doing login', $scope.loginData.email, $scope.loginData.password);
      $http({
-           method: 'POST',
-           url: 'https://api.teambasementsystems.com/tbsauth/',
-           params: { 
-                'email' :   $scope.loginData.email,
+          method: 'POST',
+          url: 'https://api.teambasementsystems.com/tbsauth/',
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' },
+          data: {
+                'email':  $scope.loginData.email,
                 'password': $scope.loginData.password
                }
-        })
 
-      .success(function(data) {
+        })
+      .success(function(response) {
           // this callback will be called asynchronously
           // when the response is available
-          alert(data.message);
-          $state.go("app.photogallery");
-        }). 
-
-      error(function(data) {
-          // called asynchronously if an error occurs
-          // or server returns response with an error status.
-           alert("fail");
+          if (response.isLoggedIn == true) {
+             alert("success");
+             console.log(response);
+             $state.go("app.ba");
+          }
+          else {
+              alert(response.message);
+              console.log(response);
+              $state.go("app.dashboard");
+          }
+          
         });
 
     // Simulate a login delay. Remove this and replace with your login
@@ -66,7 +76,7 @@ angular.module('starter.controllers', ['ngCordova', 'firebase'])
 })
 
  
-.controller('imgController', function($scope, $cordovaCamera, $cordovaDevice, 
+.controller('imgController', function($scope, $cordovaCamera, $cordovaDevice,
  $cordovaFile, $ionicPlatform,  $ionicActionSheet, ImageService, FileService) {
  
  //controller for before/after 
@@ -106,76 +116,7 @@ angular.module('starter.controllers', ['ngCordova', 'firebase'])
  })
 
 
-.controller("FirebaseController", function($scope, $state, $firebaseAuth) {
 
-    var fbAuth = $firebaseAuth(fb);
-
-    $scope.login = function(username, password) {
-        fbAuth.$authWithPassword({
-            email: username,
-            password: password
-        }).then(function(authData) {
-            $state.go("app.photogallery");
-        }).catch(function(error) {
-            console.error("ERROR: " + error);
-        });
-    }
-
-    $scope.register = function(username, password) {
-        fbAuth.$createUser({email: username, password: password}).then(function(userData) {
-            return fbAuth.$authWithPassword({
-                email: username,
-                password: password
-            });
-        }).then(function(authData) {
-            $state.go("app.photogallery");
-        }).catch(function(error) {
-            console.error("ERROR: " + error);
-        });
-    }
-
-})
-
-//upload to firebase
-.controller("SecureController", function($scope, $state, $ionicHistory, 
-  $firebaseAuth , $firebaseArray, $cordovaCamera) {
-
-    $ionicHistory.clearHistory();
-
-    $scope.images = [];
-
-   var fbAuth = fb.getAuth();
-      if(fbAuth) {
-       var userReference = fb.child("users/" + fbAuth.uid);
-         var syncArray = $firebaseArray(userReference.child("images"));
-         $scope.images = syncArray;
-    } 
-    else {
-       $state.go("app.firebase");
-      }
-
-    $scope.upload = function() {
-        var options = {
-            quality : 75,
-            destinationType : Camera.DestinationType.DATA_URL,
-            sourceType : Camera.PictureSourceType.CAMERA,
-            allowEdit : true,
-            encodingType: Camera.EncodingType.JPEG,
-            popoverOptions: CameraPopoverOptions,
-            targetWidth: 500,
-            targetHeight: 500,
-            saveToPhotoAlbum: true
-        };
-        $cordovaCamera.getPicture(options).then(function(imageData) {
-            syncArray.$add({image: imageData}).then(function() {
-                alert("Image has been uploaded");
-            });
-        }, function(error) {
-            console.error(error);
-        });
-    }
-
-})
 
 
 .controller("PostsCtrl", function($scope, $http) {

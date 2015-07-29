@@ -3,22 +3,17 @@
 	width:auto;
   min-height: 200px;
 }
-
   .demo-card-wide > .mdl-card__title {
     color: #fff;
     height: 176px;
     background: url('../img/hero.png') center;
-      background-size: cover;
-
+    background-size: cover;
   }
-
-
-
   .demo-card-square.mdl-card {
-    width: 48%;
-    height: 320px;
+      width: 48%;
+      height: 320px;
       float: left;
-  margin: 16px 3px;
+      margin: 16px 3px;
   }
   .demo-card-square > .mdl-card__title {
     color: #fff;

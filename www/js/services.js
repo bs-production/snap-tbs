@@ -1,5 +1,5 @@
 angular.module('services.serve', ['ngCordova'])
- 
+
 .factory('FileService', function() {
   var images;
   var IMAGE_STORAGE_KEY = 'images';

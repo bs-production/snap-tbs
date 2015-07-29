@@ -44,6 +44,16 @@ angular.module('starter', ['ionic', 'firebase','starter.controllers', 'ngCordova
     }
   })
 
+  .state('app.login', {
+    url: "/login",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/login.html",
+         controller: 'loginCtrl'
+      }
+    }
+  })
+
   .state('app.ba', {
     url: "/ba",
     views: {
