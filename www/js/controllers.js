@@ -13,7 +13,7 @@ angular.module('starter.controllers', ['ngCordova'])
 })
 
 
-.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $state) {
+.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $state, $filter) {
   
 // Form data for the login modal
   $scope.loginData = {};
@@ -39,31 +39,34 @@ angular.module('starter.controllers', ['ngCordova'])
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
    // console.log('Doing login', $scope.loginData.email, $scope.loginData.password);
+  /* $http.post('https://api.teambasementsystems.com/tbsauth/',
+    {
+      msg:'email=' + encodeURIComponent($scope.loginData.email) + '&password=' + encodeURIComponent($scope.loginData.password)
+    })*/
      $http({
           method: 'POST',
           url: 'https://api.teambasementsystems.com/tbsauth/',
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' },
-          data: {
-                'email':  $scope.loginData.email,
-                'password': $scope.loginData.password
-               }
+          data: 'email=' + encodeURIComponent($scope.loginData.email) + 
+                '&password=' + encodeURIComponent($scope.loginData.password)
+               
 
         })
-      .success(function(response) {
+      .success(function(data) {
           // this callback will be called asynchronously
           // when the response is available
-          if (response.isLoggedIn == true) {
+           if (data.isLoggedIn === true) {
              alert("success");
-             console.log(response);
+             console.log(data.message);
              $state.go("app.ba");
           }
           else {
-              alert(response.message);
-              console.log(response);
+              alert(data.message);
               $state.go("app.dashboard");
           }
-          
         });
+
+      
 
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
@@ -121,11 +124,12 @@ angular.module('starter.controllers', ['ngCordova'])
 
 .controller("PostsCtrl", function($scope, $http) {
    //Get profile information
-  $http.get('https://teamtreehouse.com/chalkers.json').
+  $http.get('https://api.teambasementsystems.com/newsletters/').
   success(function(data, status, headers, config) {
     // this callback will be called asynchronously
     // when the response is available
-    $scope.badges = data.badges;
+    //console.log(data);
+    $scope.titles = data;
   }).
   error(function(data, status, headers, config) {
     // called asynchronously if an error occurs
