@@ -80,20 +80,12 @@ angular.module('starter.controllers', ['ngCordova'])
 
  
 .controller('imgController', function($scope, $cordovaCamera, $cordovaDevice,
- $cordovaFile, $ionicPlatform,  $ionicActionSheet, ImageService, FileService) {
- 
- //controller for before/after 
+ $cordovaFile, $ionicPlatform,  $ionicActionSheet, $ionicHistory, ImageService, FileService) {
  
   $ionicPlatform.ready(function() {
       $scope.images = FileService.images();
       $scope.$apply();
    });
- 
- $scope.urlForImage = function(imageName) {
-  var name = imageName.substr(imageName.lastIndexOf('/') + 1);
-  var trueOrigin = cordova.file.dataDirectory + name;
-  return trueOrigin;
-}
  
   $scope.addMedia = function() {
     $scope.hideSheet = $ionicActionSheet.show({
@@ -107,14 +99,18 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.addImage(index);
       }
     });
-  }
- 
+  };
   $scope.addImage = function(type) {
     $scope.hideSheet();
     ImageService.handleMediaDialog(type).then(function() {
       $scope.$apply();
     });
-  }
+  };
+   $scope.urlForImage = function(imageName) {
+    var name = imageName.substr(imageName.lastIndexOf('/') + 1);
+    var trueOrigin = cordova.file.dataDirectory + name;
+    return trueOrigin;
+  };
  
  })
 
