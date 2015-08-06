@@ -29,24 +29,23 @@ myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $st
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
-   // console.log('Doing login', $scope.loginData.email, $scope.loginData.password);
-
     $http({
           method: 'POST',
           url: 'https://api.teambasementsystems.com/tbsauth/',
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' },
           data: 'email=' + encodeURIComponent($scope.loginData.email) +
                 '&password=' + encodeURIComponent($scope.loginData.password)
-               
-
         })
       .success(function(data) {
-          // this callback will be called asynchronously
-          // when the response is available
            if (data.isLoggedIn === true) {
+            //Let user know we are good to go
             swal("Good job!", "You now loggedin!", "success");
+            //Push Them to Dashboard
             $state.go("app.dashboard");
+            //Log out response remove when we are good 
             console.log(data.message);
+            //store access code so we can grab it later
+            localStorage.setItem('accessToken', JSON.stringify(data.accessToken));
           }
           else {
               sweetAlert(data.message);
