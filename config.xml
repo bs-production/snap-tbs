@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.snaptbs748470" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-   <allow-navigation href="*" />
+  <allow-navigation href="*"/>
   <name>snap-tbs</name>
   <description>
         An Ionic Framework and Cordova project.
@@ -18,7 +18,4 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
-
- 
-
 </widget>

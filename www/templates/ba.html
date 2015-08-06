@@ -1,35 +1,26 @@
-<ion-view view-title="Before/After" >
-   <ion-content class="has-header padding"  ng-controller="imgController">
+<ion-view view-title="SnapIt">
+<ion-content class="has-header padding"  ng-controller="imgController">
+<div class="list">
+  <label class="item item-input">
+    <input type="text" placeholder="Job ID">
+  </label>
+  <label class="item item-input">
+    <textarea placeholder="Description"></textarea>
+  </label>
+</div>
 
-   <div class="list">
-      <label class="item item-input">
-        <input type="text" placeholder="Title">
-      </label>
-      <label class="item item-input">
-        <textarea placeholder="Description"></textarea>
-      </label>
 
-       <label class="item item-input">
-        <input type="text" placeholder="Address">
-      </label>
+<button class="button button-full button-energized" ng-click="addMedia()">
+Add image
+</button>
 
-      <label class="item item-input">
-        <input type="text" placeholder="Zip">
-      </label>
-  </div>
-       
-
-  
-    <button class="button button-full button-energized" ng-click="addMedia()">
-      Add image
-    </button>
-  
- <ion-scroll>
-   <img ng-repeat="image in images" ng-src="{{urlForImage(image)}}" height="200px"/>
-  </ion-scroll>
 <br><br>
-  
-  
-  
-  </ion-content>
+
+<ion-scroll>
+<img ng-repeat="image in images" ng-src="{{urlForImage(image)}}" height="200px"/>
+</ion-scroll>
+
+
+
+</ion-content>
 </ion-view>

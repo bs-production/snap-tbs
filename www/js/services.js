@@ -1,6 +1,6 @@
-angular.module('services.serve', ['ngCordova'])
+var myServices = angular.module('services.serve', ['ngCordova']);
 
-.factory('FileService', function() {
+myServices.factory('FileService', function() {
   var images;
   var IMAGE_STORAGE_KEY = 'images';
  
@@ -17,16 +17,15 @@ angular.module('services.serve', ['ngCordova'])
   function addImage(img) {
     images.push(img);
     window.localStorage.setItem(IMAGE_STORAGE_KEY, JSON.stringify(images));
-  };
- 
+  }
   return {
     storeImage: addImage,
     images: getImages
   }
-})
+});
 
 
-.factory('ImageService', function($cordovaCamera, FileService, $q, $cordovaFile) {
+myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $cordovaFile) {
  
   function makeid() {
     var text = '';
@@ -54,7 +53,7 @@ angular.module('services.serve', ['ngCordova'])
       allowEdit: false,
       encodingType: Camera.EncodingType.JPEG,
       popoverOptions: CameraPopoverOptions,
-      saveToPhotoAlbum: true
+      saveToPhotoAlbum: false
     };
   }
  
@@ -76,7 +75,9 @@ angular.module('services.serve', ['ngCordova'])
       });
     })
   }
+
   return {
     handleMediaDialog: saveMedia
   }
+
 });

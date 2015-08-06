@@ -1,19 +1,11 @@
-angular.module('starter.controllers', ['ngCordova'])
+var myApp = angular.module('starter.controllers', ['ngCordova']);
 
-.controller('AppCtrl', function($scope, $http,  $timeout) {
-  
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-  
+myApp.controller('AppCtrl', function($scope, $http,  $timeout) {
 
-})
+});
 
 
-.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $state, $filter) {
+myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $state, $filter) {
   
 // Form data for the login modal
   $scope.loginData = {};
@@ -35,19 +27,15 @@ angular.module('starter.controllers', ['ngCordova'])
     $scope.modal.show();
   };
 
-
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
    // console.log('Doing login', $scope.loginData.email, $scope.loginData.password);
-  /* $http.post('https://api.teambasementsystems.com/tbsauth/',
-    {
-      msg:'email=' + encodeURIComponent($scope.loginData.email) + '&password=' + encodeURIComponent($scope.loginData.password)
-    })*/
-     $http({
+
+    $http({
           method: 'POST',
           url: 'https://api.teambasementsystems.com/tbsauth/',
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' },
-          data: 'email=' + encodeURIComponent($scope.loginData.email) + 
+          data: 'email=' + encodeURIComponent($scope.loginData.email) +
                 '&password=' + encodeURIComponent($scope.loginData.password)
                
 
@@ -56,13 +44,12 @@ angular.module('starter.controllers', ['ngCordova'])
           // this callback will be called asynchronously
           // when the response is available
            if (data.isLoggedIn === true) {
-             alert("success");
-             console.log(data.message);
-             $state.go("app.ba");
+            swal("Good job!", "You now loggedin!", "success");
+            $state.go("app.dashboard");
+            console.log(data.message);
           }
           else {
-              alert(data.message);
-              $state.go("app.dashboard");
+              sweetAlert(data.message);
           }
         });
 
@@ -76,16 +63,20 @@ angular.module('starter.controllers', ['ngCordova'])
   };
   
 
-})
+});
 
  
-.controller('imgController', function($scope, $cordovaCamera, $cordovaDevice,
- $cordovaFile, $ionicPlatform,  $ionicActionSheet, $ionicHistory, ImageService, FileService) {
+myApp.controller('imgController', function($scope, $cordovaDevice, $cordovaFile, $ionicPlatform,  $ionicActionSheet, ImageService, FileService) {
  
   $ionicPlatform.ready(function() {
-      $scope.images = FileService.images();
-      $scope.$apply();
-   });
+    $scope.images = FileService.images();
+    $scope.$apply();
+  });
+ 
+  $scope.urlForImage = function(imageName) {
+    var trueOrigin = cordova.file.dataDirectory + imageName;
+    return trueOrigin;
+  }
  
   $scope.addMedia = function() {
     $scope.hideSheet = $ionicActionSheet.show({
@@ -99,34 +90,27 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.addImage(index);
       }
     });
-  };
+  }
+ 
   $scope.addImage = function(type) {
     $scope.hideSheet();
     ImageService.handleMediaDialog(type).then(function() {
       $scope.$apply();
     });
-  };
-   $scope.urlForImage = function(imageName) {
-    var name = imageName.substr(imageName.lastIndexOf('/') + 1);
-    var trueOrigin = cordova.file.dataDirectory + name;
-    return trueOrigin;
-  };
+  }
+  
  
- })
+});
 
-
-
-
-
-.controller("PostsCtrl", function($scope, $http) {
+myApp.controller("PostsCtrl", function($scope, $http) {
    //Get profile information
   $http.get('https://api.teambasementsystems.com/newsletters/').
-  success(function(data, status, headers, config) {
-    // this callback will be called asynchronously
-    // when the response is available
-    //console.log(data);
-    $scope.titles = data;
-  }).
+    success(function(data, status, headers, config) {
+      // this callback will be called asynchronously
+      // when the response is available
+      //console.log(data);
+      $scope.titles = data;
+    }).
   error(function(data, status, headers, config) {
     // called asynchronously if an error occurs
     // or server returns response with an error status.
