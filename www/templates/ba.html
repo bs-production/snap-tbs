@@ -1,5 +1,4 @@
 <ion-view view-title="SnapIt">
-
 <ion-content class="has-header padding"  ng-controller="imgController">
   <div class="list">
     <label class="item item-input">
@@ -15,16 +14,14 @@
       Add image
   </button>
 
-
-    <button class="button button-full button-energized" ng-click="uploadGroup()">
-      Upload to TBS
-  </button>
-
   <br><br>
 
-  <ion-scroll>
-  <img ng-repeat="image in images" ng-src="{{urlForImage(image)}}" height="200px"/>
-  </ion-scroll>
+ <ion-scroll direction="x" style="height:200px; min-height: 200px; overflow: scroll; white-space: nowrap;">
+      <img ng-repeat="image in images" ng-src="{{urlForImage(image)}}" style="height:200px; padding: 5px;"/>
+</ion-scroll>
 
 </ion-content>
+
 </ion-view>
+
+

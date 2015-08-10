@@ -1,4 +1,4 @@
-var myServices = angular.module('services.serve', ['ngCordova']);
+var myServices = angular.module('starter');
 
 myServices.factory('FileService', function() {
   var images;
@@ -8,7 +8,8 @@ myServices.factory('FileService', function() {
     var img = window.localStorage.getItem(IMAGE_STORAGE_KEY);
     if (img) {
       images = JSON.parse(img);
-    } else {
+    } 
+    else {
       images = [];
     }
     return images;
@@ -17,7 +18,8 @@ myServices.factory('FileService', function() {
   function addImage(img) {
     images.push(img);
     window.localStorage.setItem(IMAGE_STORAGE_KEY, JSON.stringify(images));
-  }
+  };
+ 
   return {
     storeImage: addImage,
     images: getImages
@@ -75,9 +77,10 @@ myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $co
       });
     })
   }
-
   return {
     handleMediaDialog: saveMedia
   }
-
 });
+
+
+ 

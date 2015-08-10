@@ -1,4 +1,4 @@
-var myApp = angular.module('starter.controllers', ['ngCordova']);
+var myApp = angular.module('starter');
 
 myApp.controller('AppCtrl', function($scope, $http,  $timeout) {
 
@@ -9,23 +9,6 @@ myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $st
   
 // Form data for the login modal
   $scope.loginData = {};
-
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
@@ -38,27 +21,17 @@ myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $st
         })
       .success(function(data) {
            if (data.isLoggedIn === true) {
-            //Let user know we are good to go
             swal("Good job!", "You now loggedin!", "success");
-            //Push Them to Dashboard
             $state.go("app.dashboard");
-            //Log out response remove when we are good 
             console.log(data.message);
-            //store access code so we can grab it later
             localStorage.setItem('accessToken', JSON.stringify(data.accessToken));
           }
           else {
+              localStorage.clear();
               sweetAlert(data.message);
           }
         });
 
-      
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-     $timeout(function() {
-       $scope.closeLogin();
-     }, 1000);
   };
   
 
@@ -72,8 +45,9 @@ myApp.controller('imgController', function($scope, $cordovaDevice, $cordovaFile,
     $scope.$apply();
   });
  
+
   $scope.urlForImage = function(imageName) {
-    var trueOrigin = cordova.file.dataDirectory + imageName;
+    var trueOrigin =  imageName;
     return trueOrigin;
   }
  
