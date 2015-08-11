@@ -49,7 +49,7 @@ myApp.controller('imgController', function($scope, $cordovaDevice, $cordovaFile,
   $scope.urlForImage = function(imageName) {
     var trueOrigin =  imageName;
     return trueOrigin;
-  }
+  };
  
   $scope.addMedia = function() {
     $scope.hideSheet = $ionicActionSheet.show({
@@ -63,15 +63,14 @@ myApp.controller('imgController', function($scope, $cordovaDevice, $cordovaFile,
         $scope.addImage(index);
       }
     });
-  }
+  };
  
   $scope.addImage = function(type) {
     $scope.hideSheet();
     ImageService.handleMediaDialog(type).then(function() {
       $scope.$apply();
     });
-  }
-  
+  };
  
 });
 
