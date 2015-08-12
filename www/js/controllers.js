@@ -38,7 +38,7 @@ myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $st
 });
 
  
-myApp.controller('imgController', function($scope, $cordovaDevice, $cordovaFile, $ionicPlatform,  $ionicActionSheet, ImageService, FileService) {
+myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevice, $cordovaFile, $ionicPlatform,  $ionicActionSheet, ImageService, FileService) {
  
   $ionicPlatform.ready(function() {
     $scope.images = FileService.images();
@@ -71,7 +71,41 @@ myApp.controller('imgController', function($scope, $cordovaDevice, $cordovaFile,
       $scope.$apply();
     });
   };
+
+
+
+   $scope.pushImage = function(type) {
+
+    $scope.imageData = {};
+    
+    $scope.imageData.accessToken = '1147-289ec0fc9c5df3e83efca5593d5eab13';
+    $scope.imageData.company = '1015';
+    $scope.imageData.group = 'billbyob';
+
+    console.log( JSON.parse(localStorage.getItem('images')) );
+    console.log(  $scope.images[0]);
+
+     $http({
+          method: 'POST',
+          url: 'https://api.teambasementsystems.com/image/upload/',
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' },
+          data: 'accessToken=' + encodeURIComponent($scope.imageData.accessToken) +
+                '&company=' + encodeURIComponent($scope.imageData.company) +
+                '&group=' + encodeURIComponent($scope.imageData.group) +
+                '&filename=' + encodeURIComponent($scope.images[0])
+      }).
+      then(function(response) {
+        // this callback will be called asynchronously
+        // when the response is available
+        console.log(data);
+      }, function(response) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+      });
+ };
  
+
+
 });
 
 myApp.controller("PostsCtrl", function($scope, $http) {

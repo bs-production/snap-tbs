@@ -1,26 +1,36 @@
 <ion-view view-title="SnapIt">
 <ion-content class="has-header padding"  ng-controller="imgController">
+
+<form ng-submit="pushImage()">
+  <div class="list">
+    <label class="item item-input">
+      <input type="text" name="" placeholder="Job ID">
+    </label>
+  </div>
+  <button class="button button-full button-assertive" type="submit">
+  Upload to TBS
+  </button>
+</form>
+
+
+
+
 <button class="button button-full button-calm" ng-click="addMedia()">
 Add image
 </button>
-<ion-scroll direction="x" style="height:200px; min-height: 200px; overflow: scroll; white-space: nowrap;">
 
-<img ng-repeat="image in images" ng-src="{{urlForImage(image)}}" style="height:200px; padding: 5px;"/>
 
-<i class="material-icons">add</i>
+<ion-scroll direction="x" style="height:200px; min-height: 300px; overflow: scroll; white-space: nowrap;">
+
+<div class="col col-50">
+  <img ng-repeat="image in images" ng-src="{{urlForImage(image)}}" style="height:300px; padding: 5px;"/>
+</div>
 
 </ion-scroll>
 
 
-<form ng-submit="functioName()">
-  <div class="list">
-    <label class="item item-input">
-      <input type="text" name="group" placeholder="Job ID">
-    </label>
-  </div>
-  <button class="button button-full button-assertive" ng-click="functionName()">
-  Upload to TBS
-  </button>
-</form>
+
+
+
 </ion-content>
 </ion-view>

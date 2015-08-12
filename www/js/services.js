@@ -67,11 +67,11 @@ myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $co
         var namePath = imageUrl.substr(0, imageUrl.lastIndexOf('/') + 1);
         var newName = makeid() + name;
 
-        console.log(imageUrl);
-        console.log(namePath);
-        console.log(name);
-        console.log(newName);
-        console.log(cordova.file.dataDirectory);
+        // console.log(imageUrl);
+        // console.log(namePath);
+        // console.log(name);
+        // console.log(newName);
+        // console.log(cordova.file.dataDirectory);
 
         $cordovaFile.copyFile(namePath, name, cordova.file.dataDirectory, newName)
           .then(function(info) {
