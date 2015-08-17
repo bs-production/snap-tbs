@@ -1,7 +1,7 @@
 <ion-view view-title="SnapIt">
 <ion-content class="has-header padding"  ng-controller="imgController">
 
-<form ng-submit="upload()">
+<form ng-submit="pushImage()">
   <div class="list">
     <label class="item item-input">
       <input type="text" name="" placeholder="Job ID">
@@ -10,12 +10,12 @@
 
 
 
-  <button class="button button-full button-calm"  ng-click="addMedia()" onchange="angular.element(this).scope().onFileUpload(this)">
+  <button class="button button-full button-calm"  ng-click="addMedia()">
     Add image
   </button>
 
 
-    <button file-model="myFile"  class="button button-full button-assertive"  type="submit" >
+    <button  class="button button-full button-assertive" type="submit" >
         Upload to TBS
   </button>
 

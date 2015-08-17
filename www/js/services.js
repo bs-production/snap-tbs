@@ -75,7 +75,7 @@ myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $co
 
         $cordovaFile.copyFile(namePath, name, cordova.file.dataDirectory, newName)
           .then(function(info) {
-            FileService.storeImage(namePath + newName);
+            FileService.storeImage(cordova.file.dataDirectory + newName);
             resolve();
           },
           function(e) {

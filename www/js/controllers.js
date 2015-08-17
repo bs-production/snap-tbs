@@ -58,8 +58,8 @@ myApp.controller("PostsCtrl", function($scope, $http) {
 myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevice, $cordovaFile, $cordovaFileTransfer, $ionicPlatform,  $ionicActionSheet, ImageService, FileService) {
  
   $ionicPlatform.ready(function() {
-    //$scope.images = FileService.images();
-    //$scope.$apply();
+    $scope.images = FileService.images();
+    $scope.$apply();
   });
  
 
@@ -93,14 +93,15 @@ $scope.urlForImage = function(imageName) {
  
    $scope.pushImage = function(type) {
 
-    console.log( JSON.parse(localStorage.getItem('images')) );
-    console.log(  $scope.images[0] );
-
     $scope.imageData = {};
     $scope.imageData.accessToken = '1147-cfaaf6384f7cab25782f919e5ef7c79a';
     $scope.imageData.company = '1015';
     $scope.imageData.group = 'billbyob';
-    
+
+    console.log( JSON.parse(localStorage.getItem('images')) );
+    console.log(  $scope.images[0] );
+ 
+   
     var fileURL =    JSON.parse(localStorage.getItem('images')) ;
     var uploadUrl = 'https://api.teambasementsystems.com/image/upload/';
 
