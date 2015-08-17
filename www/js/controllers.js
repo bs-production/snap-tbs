@@ -6,7 +6,6 @@ myApp.controller('AppCtrl', function($scope, $http,  $timeout) {
 
 
 myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $state, $filter) {
-  
 // Form data for the login modal
   $scope.loginData = {};
 
@@ -31,10 +30,7 @@ myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $st
               sweetAlert(data.message);
           }
         });
-
   };
-  
-
 });
 
 myApp.controller("PostsCtrl", function($scope, $http) {
@@ -53,9 +49,8 @@ myApp.controller("PostsCtrl", function($scope, $http) {
 });
 
 
-
  
-myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevice, $cordovaFile, $cordovaFileTransfer, $ionicPlatform,  $ionicActionSheet, ImageService, FileService) {
+myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevice, $cordovaFile, $cordovaFileTransfer, $ionicPlatform,  $ionicActionSheet, ImageService, FileService, Upload) {
  
   $ionicPlatform.ready(function() {
     $scope.images = FileService.images();
@@ -93,6 +88,7 @@ $scope.urlForImage = function(imageName) {
  
    $scope.pushImage = function(type) {
 
+
     $scope.imageData = {};
     $scope.imageData.accessToken = '1147-cfaaf6384f7cab25782f919e5ef7c79a';
     $scope.imageData.company = '1015';
@@ -102,7 +98,9 @@ $scope.urlForImage = function(imageName) {
     console.log(  $scope.images[0] );
  
    
-    var fileURL =    JSON.parse(localStorage.getItem('images')) ;
+    var fileURL =   $scope.images[0]  ;
+    var fileLocal = JSON.parse(localStorage.getItem('images'));
+    
     var uploadUrl = 'https://api.teambasementsystems.com/image/upload/';
 
     var formData = new FormData();
@@ -110,23 +108,22 @@ $scope.urlForImage = function(imageName) {
     formData.append('company', $scope.imageData.company);
     formData.append('group',   $scope.imageData.group);
 
-      $http({
-           method: 'POST',
-              url: uploadUrl,
-              headers : {
-                  'Content-Type': 'undefined '
-               },
-              data:  formData
-          }).
-        success(function (data, status, headers, config) {
+   Upload.upload({
 
-            console.log("success!");
+                file: localStorage.getItem('images'),
+                 url: uploadUrl,
+                 method: 'POST',
+                 headers: {'Content-Type': 'multipart/form-data'}, // only for html5 
+                 fileName: '1.jpg',
+                 fileFormDataName: 'file',
+                 data: {
+                    'accessToken':  $scope.imageData.accessToken,
+                    'company':  $scope.imageData.company,
+                    'group':  $scope.imageData.group
+                  }
+      });
 
-        }).
-        error(function (data, status, headers, config) {
-
-            console.log("failed!");
-        });
+     
  };
  
  

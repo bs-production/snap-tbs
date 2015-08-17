@@ -27,8 +27,6 @@ myServices.factory('FileService', function() {
 
  
 
-
-
 myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $cordovaFile) {
  
   function makeid() {
