@@ -7,9 +7,9 @@ myServices.factory('FileService', function() {
   function getImages() {
     var img = window.localStorage.getItem(IMAGE_STORAGE_KEY);
     if (img) {
-      images = JSON.parse(img);
+         images = JSON.parse(img);
     } else {
-      images = [];
+        images = [];
     }
     return images;
   };
@@ -24,6 +24,9 @@ myServices.factory('FileService', function() {
     images: getImages
   }
 });
+
+ 
+
 
 
 myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $cordovaFile) {
@@ -67,15 +70,12 @@ myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $co
         var namePath = imageUrl.substr(0, imageUrl.lastIndexOf('/') + 1);
         var newName = makeid() + name;
 
-        // console.log(imageUrl);
-        // console.log(namePath);
-        // console.log(name);
-        // console.log(newName);
-        // console.log(cordova.file.dataDirectory);
+        console.log(name);
+        console.log(namePath);
 
         $cordovaFile.copyFile(namePath, name, cordova.file.dataDirectory, newName)
           .then(function(info) {
-            FileService.storeImage(cordova.file.dataDirectory + newName);
+            FileService.storeImage(namePath + newName);
             resolve();
           },
           function(e) {
@@ -90,3 +90,6 @@ myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $co
   }
 });
 
+
+
+ 

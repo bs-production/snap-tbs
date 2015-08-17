@@ -37,19 +37,37 @@ myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $st
 
 });
 
+myApp.controller("PostsCtrl", function($scope, $http) {
+   //Get profile information
+  $http.get('https://api.teambasementsystems.com/newsletters/').
+    success(function(data, status, headers, config) {
+      // this callback will be called asynchronously
+      // when the response is available
+      //console.log(data);
+      $scope.titles = data;
+    }).
+  error(function(data, status, headers, config) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+  });
+});
+
+
+
  
-myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevice, $cordovaFile, $ionicPlatform,  $ionicActionSheet, ImageService, FileService) {
+myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevice, $cordovaFile, $cordovaFileTransfer, $ionicPlatform,  $ionicActionSheet, ImageService, FileService) {
  
   $ionicPlatform.ready(function() {
-    $scope.images = FileService.images();
-    $scope.$apply();
+    //$scope.images = FileService.images();
+    //$scope.$apply();
   });
  
 
-  $scope.urlForImage = function(imageName) {
-    var trueOrigin =  imageName;
-    return trueOrigin;
-  };
+$scope.urlForImage = function(imageName) {
+     var name = imageName.substr(imageName.lastIndexOf('/') + 1);
+     var trueOrigin = cordova.file.dataDirectory + name;
+     return trueOrigin;
+}
  
   $scope.addMedia = function() {
     $scope.hideSheet = $ionicActionSheet.show({
@@ -72,58 +90,50 @@ myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevic
     });
   };
 
-
-
+ 
    $scope.pushImage = function(type) {
 
+    console.log( JSON.parse(localStorage.getItem('images')) );
+    console.log(  $scope.images[0] );
+
     $scope.imageData = {};
-    
-    $scope.imageData.accessToken = '1147-289ec0fc9c5df3e83efca5593d5eab13';
+    $scope.imageData.accessToken = '1147-cfaaf6384f7cab25782f919e5ef7c79a';
     $scope.imageData.company = '1015';
     $scope.imageData.group = 'billbyob';
+    
+    var fileURL =    JSON.parse(localStorage.getItem('images')) ;
+    var uploadUrl = 'https://api.teambasementsystems.com/image/upload/';
 
-    console.log( JSON.parse(localStorage.getItem('images')) );
-    console.log(  $scope.images[0]);
+    var formData = new FormData();
+    formData.append('accessToken', $scope.imageData.accessToken);
+    formData.append('company', $scope.imageData.company);
+    formData.append('group',   $scope.imageData.group);
 
-     $http({
-          method: 'POST',
-          url: 'https://api.teambasementsystems.com/image/upload/',
-          headers : { 'Content-Type': 'application/x-www-form-urlencoded' },
-          data: 'accessToken=' + encodeURIComponent($scope.imageData.accessToken) +
-                '&company=' + encodeURIComponent($scope.imageData.company) +
-                '&group=' + encodeURIComponent($scope.imageData.group) +
-                '&filename=' + encodeURIComponent($scope.images[0])
-      }).
-      then(function(response) {
-        // this callback will be called asynchronously
-        // when the response is available
-        console.log(data);
-      }, function(response) {
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-      });
+      $http({
+           method: 'POST',
+              url: uploadUrl,
+              headers : {
+                  'Content-Type': 'undefined '
+               },
+              data:  formData
+          }).
+        success(function (data, status, headers, config) {
+
+            console.log("success!");
+
+        }).
+        error(function (data, status, headers, config) {
+
+            console.log("failed!");
+        });
  };
  
-
+ 
 
 });
 
-myApp.controller("PostsCtrl", function($scope, $http) {
-   //Get profile information
-  $http.get('https://api.teambasementsystems.com/newsletters/').
-    success(function(data, status, headers, config) {
-      // this callback will be called asynchronously
-      // when the response is available
-      //console.log(data);
-      $scope.titles = data;
-    }).
-  error(function(data, status, headers, config) {
-    // called asynchronously if an error occurs
-    // or server returns response with an error status.
-  });
-});
 
+ 
 
-
-
-
+ 
+ 
