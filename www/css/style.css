@@ -5,13 +5,13 @@
 }
   .demo-card-wide > .mdl-card__title {
     color: #fff;
-    height: 176px;
+    height: 225px;
     background: url('../img/hero.png') center;
     background-size: cover;
   }
   .demo-card-square.mdl-card {
       width: 48%;
-      height: 320px;
+      height: 245px;
       float: left;
       margin: 16px 3px;
   }
@@ -43,13 +43,19 @@
     color: white !important;
   }
 
+
+
 /* hambugrer color */
 .bar-light .button.button-clear {
         color: #387ef5;
 }
 
+/* button overider */
 
 
+.login-form .mdl-button {
+     height:50px;
+}
 
 /*login form */
 
@@ -63,3 +69,12 @@
 .login-form .item {
   background-color: whitesmoke;
 }
+
+.dash-content {
+      background:#1a2634;
+}
+
+.mdl-button--accent.mdl-button--accent.mdl-button--raised {
+    color: #fff;
+    background-color: #eec550;
+} 
