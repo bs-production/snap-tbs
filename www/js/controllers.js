@@ -115,11 +115,12 @@ $scope.urlForImage = function(imageName) {
               url: uploadUrl,
               file: fileURL,
               headers : {
-                  'Content-Type': 'multipart/form-data'
+                  'Content-Type': 'application/x-www-form-urlencoded'
                },
-              data: 'accessToken=' + encodeURIComponent($scope.imageData.accessToken) +
+             data: 'accessToken=' + encodeURIComponent($scope.imageData.accessToken) +
                 '&company=' + encodeURIComponent($scope.imageData.company) +
                 '&group=' + encodeURIComponent($scope.imageData.group)
+ 
           }).
         success(function (data, status, headers, config) {
 
