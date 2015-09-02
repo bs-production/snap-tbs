@@ -1,6 +1,6 @@
 var myServices = angular.module('starter');
 
-myServices.factory('FileService', function() {
+myServices.factory('FileService', function($base64) {
   var images;
   var IMAGE_STORAGE_KEY = 'images';
  
@@ -27,7 +27,7 @@ myServices.factory('FileService', function() {
 
  
 
-myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $cordovaFile) {
+myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $cordovaFile, $base64) {
  
   function makeid() {
     var text = '';
@@ -57,6 +57,7 @@ myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $co
       popoverOptions: CameraPopoverOptions,
       saveToPhotoAlbum: false
     };
+    
   }
  
   function saveMedia(type) {
@@ -68,12 +69,9 @@ myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $co
         var namePath = imageUrl.substr(0, imageUrl.lastIndexOf('/') + 1);
         var newName = makeid() + name;
 
-        console.log(name);
-        console.log(namePath);
-
-        $cordovaFile.copyFile(namePath, name, cordova.file.dataDirectory, newName)
+         $cordovaFile.copyFile(namePath, name, cordova.file.dataDirectory, newName)
           .then(function(info) {
-            FileService.storeImage(cordova.file.dataDirectory + newName);
+            FileService.storeImage(newName);
             resolve();
           },
           function(e) {

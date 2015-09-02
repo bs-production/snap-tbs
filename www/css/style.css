@@ -1,7 +1,7 @@
 /* Dashboard Styles */
 .mdl-card {
 	width:auto;
-  min-height: 176px;
+  min-height: 100px;
 }
   .demo-card-wide > .mdl-card__title {
     color: #fff;
@@ -22,7 +22,9 @@
         background-size: cover;
   }
 
-
+.main-card {
+  margin: 10px;
+}
  
 
  
@@ -46,8 +48,20 @@
 
 
 /* hambugrer color */
+
+[nav-bar-transition="android"] [nav-bar="active"] .bar, [nav-bar-transition="android"] [nav-bar="entering"] .bar, 
+[nav-bar-transition="ios"] [nav-bar="active"] .bar, [nav-bar-transition="ios"] [nav-bar="entering"] .bar {
+    background: #2196F3;
+    color:white;
+}
+
+
+.bar.bar-light .title {
+     color:white;
+}
+
 .bar-light .button.button-clear {
-        color: #387ef5;
+       color:white;
 }
 
 /* button overider */
@@ -60,10 +74,7 @@
 /*login form */
 
 .login-form {
-  background-image:  linear-gradient(
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
-    ),url('https://unsplash.it/600/1000?blur');
+  background: radial-gradient(#35B6F2 36%, #2BA8E3 74%, #0C79B4 119%);
 }
 
 .login-form .item {
@@ -71,10 +82,32 @@
 }
 
 .dash-content {
-      background:#1a2634;
+      background:#E2E2E2;
 }
 
 .mdl-button--accent.mdl-button--accent.mdl-button--raised {
     color: #fff;
     background-color: #eec550;
 } 
+
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v7/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  word-wrap: normal;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
