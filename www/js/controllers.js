@@ -92,8 +92,14 @@ $scope.urlForImage = function(imageName) {
 
    $scope.megaUpload = function(file) {
 
+ 
+ 
+ 
+
+ document.addEventListener('deviceready', function () {  
+
     $scope.imageData = {};
-    $scope.imageData.accessToken = '1147-cdedccaee5a51a502730adb15321953f';
+    $scope.imageData.accessToken = '1147-c1a2dd7d6baf5b447ce433957ad28cf4';
     $scope.imageData.company = '1015';
     $scope.imageData.group = 'billbyob';
     
@@ -102,57 +108,34 @@ $scope.urlForImage = function(imageName) {
     console.log( JSON.stringify($scope.images[0]) );
 
     var fileURL =   JSON.stringify($scope.images[0]);   
-    var uploadUrl = 'https://api.teambasementsystems.com/image/upload/';
-
-    // var formData = new FormData();
-    // formData.append('accessToken', $scope.imageData.accessToken);
-    // formData.append('company', $scope.imageData.company);
-    // formData.append('group',   $scope.imageData.group);
- 
-
- document.addEventListener('deviceready', function () {  
-
-
- var imgElem = document.getElementById('myFiles');  
-
- function getBase64Image(imgElem) {
-    var canvas = document.createElement("canvas");
-    canvas.width = imgElem.clientWidth;
-    canvas.height = imgElem.clientHeight;
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(imgElem, 0, 0);
-    var dataURL = canvas.toDataURL("image/jpg");
-    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-}
-
-    console.log("data:image/jpg;base64," +  JSON.stringify(getBase64Image(imgElem)) );
-
-    $scope.imageData.dataURI = JSON.stringify(getBase64Image(imgElem));
-
-
-    var formData = new FormData();
-    formData.append('accessToken', $scope.imageData.accessToken);
-    formData.append('company', $scope.imageData.company);
-    formData.append('group',   $scope.imageData.group);
-    formData.append('file', $scope.imageData.dataURI  );
+    var uploadUrl = 'http://ryan.dev.basementsite.com/api/image/index2.php/upload';
 
       $http({
            method: 'POST',
               url: uploadUrl,
+              file: fileURL,
               headers : {
-                  'Content-Type': 'undefined '
+                  'Content-Type': 'multipart/form-data'
                },
-              data:  formData
+              data: 'accessToken=' + encodeURIComponent($scope.imageData.accessToken) +
+                '&company=' + encodeURIComponent($scope.imageData.company) +
+                '&group=' + encodeURIComponent($scope.imageData.group)
           }).
         success(function (data, status, headers, config) {
 
             console.log("success!");
+            console.log(data);
+            
 
         }).
         error(function (data, status, headers, config) {
 
-            console.log("failed!");
+              console.log("failed!");
+               console.log(data);
+            
         });
+
+
 
   });
 
