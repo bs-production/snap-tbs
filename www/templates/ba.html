@@ -24,8 +24,9 @@
     <ion-scroll direction="x" style="min-height: 300px; overflow: scroll; white-space: nowrap;">
     <div class="row">
       <div class="col">
-        <img id="myFiles" ng-repeat="image in images" ng-src="{{urlForImage(image)}}" 
-        style="width: 300px; padding: 5px;"/>
+
+        <img ng-attr-id="{{ 'object-' + $index }}" ng-repeat="image in images" ng-src="{{urlForImage(image)}}" style="width: 300px; padding: 5px;"/>
+
       </div>
     </div>
     </ion-scroll>

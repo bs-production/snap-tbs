@@ -51,7 +51,7 @@ myApp.controller("PostsCtrl", function($scope, $http) {
 
 
  
-myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevice, $cordovaFile, $cordovaFileTransfer, $ionicPlatform,  $ionicActionSheet, ImageService, FileService, Upload) {
+myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevice, $cordovaFile, $cordovaFileTransfer, $ionicPlatform,  $ionicActionSheet, ImageService, FileService, Upload, $base64) {
  
   $ionicPlatform.ready(function() {
     $scope.images = FileService.images();
@@ -99,7 +99,7 @@ $scope.urlForImage = function(imageName) {
  document.addEventListener('deviceready', function () {  
 
     $scope.imageData = {};
-    $scope.imageData.accessToken = '1147-c1a2dd7d6baf5b447ce433957ad28cf4';
+    $scope.imageData.accessToken = '1147-17e482216956aacccd7450b71f3e07b6';
     $scope.imageData.company = '1015';
     $scope.imageData.group = 'billbyob';
     
@@ -110,16 +110,34 @@ $scope.urlForImage = function(imageName) {
     var fileURL =   JSON.stringify($scope.images[0]);   
     var uploadUrl = 'http://ryan.dev.basementsite.com/api/image/index2.php/upload';
 
+     
+    function getBase64Image(img1) { 
+        var canvas = document.createElement("canvas");
+        canvas.width = img1.naturalHeight;
+        canvas.height = img1.naturalWidth;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img1, 0, 0);
+        var dataURL = canvas.toDataURL("image/png");
+        return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+    }
+
+       var img1 = document.getElementById("object-0");
+       var imgData = 'data:image/jpg;base64,' + getBase64Image(img1);
+
+      console.log(imgData);
+
+
       $http({
-           method: 'POST',
+              method: 'POST',
+              debug: 1,
               url: uploadUrl,
-              file: fileURL,
               headers : {
                   'Content-Type': 'application/x-www-form-urlencoded'
                },
              data: 'accessToken=' + encodeURIComponent($scope.imageData.accessToken) +
                 '&company=' + encodeURIComponent($scope.imageData.company) +
-                '&group=' + encodeURIComponent($scope.imageData.group)
+                '&group=' + encodeURIComponent($scope.imageData.group) +
+                '&image_0=' + encodeURIComponent(imgData)
  
           }).
         success(function (data, status, headers, config) {
