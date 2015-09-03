@@ -13,24 +13,19 @@
       Take Picture
       </button>
 
-       <button class="button button-full button-assertive" type="file" file-model="myFile">
-      Select From Camera Roll</button>
-  
+ 
       <button  class="button button-full button-assertive" ng-click="megaUpload()">
         Upload to TBS
       </button>
 
-         
-    <ion-scroll direction="x" style="min-height: 300px; overflow: scroll; white-space: nowrap;">
+
     <div class="row">
-      <div class="col">
-
-        <img ng-attr-id="{{ 'object-' + $index }}" ng-repeat="image in images" ng-src="{{urlForImage(image)}}" style="width: 300px; padding: 5px;"/>
-
+      <div class="col-50" ng-repeat="image in images">
+         <img ng-attr-id="{{ 'object-' + $index }}"  
+         ng-src="{{urlForImage(image)}}" style="width: 175px; height: 220px; padding: 5px;"/>
+         <a ng-click="remove(images, $index)">Delete</a>
       </div>
     </div>
-    </ion-scroll>
-
 
   </form>
 </ion-content>

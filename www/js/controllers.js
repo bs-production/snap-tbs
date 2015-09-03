@@ -51,7 +51,7 @@ myApp.controller("PostsCtrl", function($scope, $http) {
 
 
  
-myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevice, $cordovaFile, $cordovaFileTransfer, $ionicPlatform,  $ionicActionSheet, ImageService, FileService, Upload, $base64) {
+myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevice, $cordovaFile, $cordovaFileTransfer, $ionicPlatform,  $ionicActionSheet, ImageService, FileService) {
  
   $ionicPlatform.ready(function() {
     $scope.images = FileService.images();
@@ -65,7 +65,12 @@ $scope.urlForImage = function(imageName) {
      var trueOrigin = cordova.file.dataDirectory + name;
      $scope.newImg = trueOrigin;
      return trueOrigin;
-}
+};
+
+ $scope.remove = function(array, index){
+    array.splice(index, 1);
+};
+
  
   $scope.addMedia = function() {
     $scope.hideSheet = $ionicActionSheet.show({
@@ -92,23 +97,19 @@ $scope.urlForImage = function(imageName) {
 
    $scope.megaUpload = function(file) {
 
- 
- 
- 
+      document.addEventListener('deviceready', function () {
 
- document.addEventListener('deviceready', function () {  
-
-    $scope.imageData = {};
-    $scope.imageData.accessToken = '1147-17e482216956aacccd7450b71f3e07b6';
-    $scope.imageData.company = '1015';
-    $scope.imageData.group = 'billbyob';
+      $scope.imageData = {};
+      $scope.imageData.accessToken = '1147-17e482216956aacccd7450b71f3e07b6';
+      $scope.imageData.company = '1015';
+      $scope.imageData.group = 'billbyob';
     
 
-    console.log( $scope.newImg );
-    console.log( JSON.stringify($scope.images[0]) );
+        console.log( $scope.newImg );
+        console.log( JSON.stringify($scope.images[0]) );
 
-    var fileURL =   JSON.stringify($scope.images[0]);   
-    var uploadUrl = 'http://ryan.dev.basementsite.com/api/image/index2.php/upload';
+        var fileURL =   JSON.stringify($scope.images[0]);   
+        var uploadUrl = 'http://ryan.dev.basementsite.com/api/image/index2.php/upload';
 
      
     function getBase64Image(img1) { 
@@ -119,6 +120,8 @@ $scope.urlForImage = function(imageName) {
         ctx.drawImage(img1, 0, 0);
         var dataURL = canvas.toDataURL("image/png");
         return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     }
 
        var img1 = document.getElementById("object-0");
