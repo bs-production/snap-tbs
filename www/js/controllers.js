@@ -56,7 +56,6 @@ myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevic
       $scope.imageData = {};
       $scope.imageData.accessToken = '1147-849328641269f761ae5475b1c74ce860';
       $scope.imageData.company = '1015';
-
       //delete this value to get the field to work
       $scope.imageData.group = '34';
 
