@@ -1,6 +1,6 @@
 var myServices = angular.module('starter');
 
-myServices.factory('FileService', function($base64) {
+myServices.factory('FileService', function() {
   var images;
   var IMAGE_STORAGE_KEY = 'images';
  
@@ -27,7 +27,7 @@ myServices.factory('FileService', function($base64) {
 
  
 
-myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $cordovaFile, $base64) {
+myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $cordovaFile) {
  
   function makeid() {
     var text = '';
@@ -50,8 +50,8 @@ myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $co
         break;
     }
     return {
-      quality: 80,
-      targetWidth: 1000,
+      quality: 60,
+      targetWidth: 800,
       destinationType: Camera.DestinationType.FILE_URI,
       sourceType: source,
       allowEdit: false,

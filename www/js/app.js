@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic','ngCordova', 'ngFileUpload', 'base64'])
+angular.module('starter', ['ionic','ngCordova', 'ngFileUpload', 'angular-loading-bar'])
 
   .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

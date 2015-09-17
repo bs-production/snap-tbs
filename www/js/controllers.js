@@ -53,6 +53,14 @@ myApp.controller("PostsCtrl", function($scope, $http) {
  
 myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevice, $cordovaFile, $cordovaFileTransfer, $ionicPlatform,  $ionicActionSheet, ImageService, FileService) {
  
+      $scope.imageData = {};
+      $scope.imageData.accessToken = '1147-849328641269f761ae5475b1c74ce860';
+      $scope.imageData.company = '1015';
+
+      //delete this value to get the field to work
+      $scope.imageData.group = '34';
+
+
   $ionicPlatform.ready(function() {
     $scope.images = FileService.images();
     $scope.$apply();
@@ -60,19 +68,13 @@ myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevic
  
 
 $scope.urlForImage = function(imageName) {
-
      var name = imageName.substr(imageName.lastIndexOf('/') + 1);
      var trueOrigin = cordova.file.dataDirectory + name;
-     $scope.newImg = trueOrigin;
      return trueOrigin;
 };
 
- $scope.remove = function(array, index){
-    array.splice(index, 1);
-};
 
- 
-  $scope.addMedia = function() {
+ $scope.addMedia = function() {
     $scope.hideSheet = $ionicActionSheet.show({
       buttons: [
         { text: 'Take photo' },
@@ -89,50 +91,65 @@ $scope.urlForImage = function(imageName) {
   $scope.addImage = function(type) {
     $scope.hideSheet();
     ImageService.handleMediaDialog(type).then(function() {
-      $scope.$apply();
+        $scope.$apply();
     });
   };
 
+ $scope.remove = function(array, index){
+    array.splice(index, 1);
+};
 
 
-   $scope.megaUpload = function(file) {
+ $scope.megaUpload = function(file) {
 
-      document.addEventListener('deviceready', function () {
-
-      $scope.imageData = {};
-      $scope.imageData.accessToken = '1147-17e482216956aacccd7450b71f3e07b6';
-      $scope.imageData.company = '1015';
-      $scope.imageData.group = 'billbyob';
-    
-
-        console.log( $scope.newImg );
-        console.log( JSON.stringify($scope.images[0]) );
-
-        var fileURL =   JSON.stringify($scope.images[0]);   
-        var uploadUrl = 'http://ryan.dev.basementsite.com/api/image/index2.php/upload';
+    document.addEventListener('deviceready', function () {
 
      
-    function getBase64Image(img1) { 
-        var canvas = document.createElement("canvas");
-        canvas.width = img1.naturalHeight;
-        canvas.height = img1.naturalWidth;
-        var ctx = canvas.getContext("2d");
-        ctx.drawImage(img1, 0, 0);
-        var dataURL = canvas.toDataURL("image/png");
-        return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    }
+      var uploadUrl = 'https://api.teambasementsystems.com/image/upload';
 
-       var img1 = document.getElementById("object-0");
-       var imgData = 'data:image/jpg;base64,' + getBase64Image(img1);
+       // function getBase64Image(imgVal) { 
+       //      var canvas = document.createElement("canvas");
+       //      canvas.width = imgVal.naturalHeight;
+       //      canvas.height = imgVal.naturalWidth;
+       //      var ctx = canvas.getContext("2d");
+       //      ctx.drawImage(imgVal, 0, 0);
+       //      var dataURL = canvas.toDataURL("image/jpg");
+       //      return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+       //      ctx.clearRect(0, 0, canvas.width, canvas.height);
+       //  }
 
-      console.log(imgData);
+ 
+       //    var imgData = []; 
+
+       //    for (var i = 0; i < $scope.images.length; i++) {
+       //      var imgVal = document.getElementById("object-" + i );
+       //      imgData.push("&image_" + [i] +"=" + 'data:image/jpg;base64,' + getBase64Image( imgVal ) ) ;
+       //      console.log(i);
+       //   }
 
 
+
+    for (var i = 0; i < $scope.images.length; i++) {
+          function getBase64Image(img1) { 
+            var canvas = document.createElement("canvas");
+            canvas.width = img1.naturalHeight;
+            canvas.height = img1.naturalWidth;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img1, 0, 0);
+            var dataURL = canvas.toDataURL("image/png");
+            return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        }
+
+
+         var img1 = document.getElementById("object-" + i);
+         var imgData = 'data:image/jpg;base64,' + getBase64Image(img1);
+         console.log(img1);
+                
       $http({
               method: 'POST',
-              debug: 1,
               url: uploadUrl,
               headers : {
                   'Content-Type': 'application/x-www-form-urlencoded'
@@ -140,22 +157,19 @@ $scope.urlForImage = function(imageName) {
              data: 'accessToken=' + encodeURIComponent($scope.imageData.accessToken) +
                 '&company=' + encodeURIComponent($scope.imageData.company) +
                 '&group=' + encodeURIComponent($scope.imageData.group) +
-                '&image_0=' + encodeURIComponent(imgData)
+                '&image_'+ i + '=' + encodeURIComponent(imgData)
  
           }).
         success(function (data, status, headers, config) {
-
             console.log("success!");
             console.log(data);
-            
-
         }).
         error(function (data, status, headers, config) {
-
               console.log("failed!");
-               console.log(data);
-            
+              console.log(data);     
         });
+
+      }
 
 
 

@@ -1,32 +1,37 @@
 <ion-view view-title="SnapIt">
-<ion-content class="has-header"  ng-controller="imgController">
-
- <form ng-app="fileUpload"  name="form">
+<ion-content class="has-header has-subheader"  ng-controller="imgController">
+<div class="padding-vertical">
+<p>Enter a unquine ID for the photos you want to upload into Team Basement systems</p>
+ <form name="form" >
         <div class="list">
           <label class="item item-input">
-            <input type="text" name="" placeholder="Job ID">
+            <input type="text" placeholder="Job ID" ng-model="imageData.group">
           </label>
         </div>
-
-
       <button class="button button-full button-calm"  ng-click="addMedia()">
       Take Picture
       </button>
 
- 
-      <button  class="button button-full button-assertive" ng-click="megaUpload()">
-        Upload to TBS
-      </button>
-
-
     <div class="row">
-      <div class="col-50" ng-repeat="image in images">
+      <div class="col-50" ng-repeat="image in images|limitTo:4">
+
          <img ng-attr-id="{{ 'object-' + $index }}"  
          ng-src="{{urlForImage(image)}}" style="width: 175px; height: 220px; padding: 5px;"/>
+
          <a ng-click="remove(images, $index)">Delete</a>
+
       </div>
     </div>
 
+     <button  class="button button-full button-assertive" ng-click="megaUpload()">
+        Upload to TBS
+      </button>
+
+    Total Images : {{images.length}} | 4
+
   </form>
+  </div>
 </ion-content>
 </ion-view>
+
+

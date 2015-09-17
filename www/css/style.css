@@ -49,20 +49,7 @@
 
 /* hambugrer color */
 
-[nav-bar-transition="android"] [nav-bar="active"] .bar, [nav-bar-transition="android"] [nav-bar="entering"] .bar, 
-[nav-bar-transition="ios"] [nav-bar="active"] .bar, [nav-bar-transition="ios"] [nav-bar="entering"] .bar {
-    background: #2196F3;
-    color:white;
-}
-
-
-.bar.bar-light .title {
-     color:white;
-}
-
-.bar-light .button.button-clear {
-       color:white;
-}
+ 
 
 /* button overider */
 
@@ -95,7 +82,7 @@
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v7/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(css/material.woff2) format('woff2');
 }
 
 .material-icons {
