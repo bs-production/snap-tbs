@@ -34,7 +34,7 @@ myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $st
   };
 });
 
-myApp.controller("PostsCtrl", function($scope, $http) {
+myApp.controller("PostsCtrl", function($scope, $ionicModal, $http) {
    //Get profile information
   $http.get('https://api.teambasementsystems.com/newsletters/').
     success(function(data, status, headers, config) {
@@ -47,17 +47,28 @@ myApp.controller("PostsCtrl", function($scope, $http) {
     // called asynchronously if an error occurs
     // or server returns response with an error status.
   });
+
+
 });
 
 
  
 myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevice, $cordovaFile, $cordovaFileTransfer, $ionicPlatform,  $ionicActionSheet, ImageService, FileService) {
  
+      
+      //Get Values from local storage
+      var token = localStorage.getItem('accessToken');
+      var company  = localStorage.getItem('company');
+
+      console.log(token);
+      console.log(company);
+
+      //start the form data building
       $scope.imageData = {};
-      $scope.imageData.accessToken = '1147-849328641269f761ae5475b1c74ce860';
+      $scope.imageData.accessToken = '1147-a8dc987ce1981e9b61ea021a58234467';
       $scope.imageData.company = '1015';
       //delete this value to get the field to work
-      $scope.imageData.group = '34';
+      $scope.imageData.group = '22';
 
 
   $ionicPlatform.ready(function() {
@@ -107,29 +118,11 @@ $scope.urlForImage = function(imageName) {
 
       var uploadUrl = 'https://api.teambasementsystems.com/image/upload';
 
-       // function getBase64Image(imgVal) { 
-       //      var canvas = document.createElement("canvas");
-       //      canvas.width = imgVal.naturalHeight;
-       //      canvas.height = imgVal.naturalWidth;
-       //      var ctx = canvas.getContext("2d");
-       //      ctx.drawImage(imgVal, 0, 0);
-       //      var dataURL = canvas.toDataURL("image/jpg");
-       //      return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-       //      ctx.clearRect(0, 0, canvas.width, canvas.height);
-       //  }
 
- 
-       //    var imgData = []; 
-
-       //    for (var i = 0; i < $scope.images.length; i++) {
-       //      var imgVal = document.getElementById("object-" + i );
-       //      imgData.push("&image_" + [i] +"=" + 'data:image/jpg;base64,' + getBase64Image( imgVal ) ) ;
-       //      console.log(i);
-       //   }
-
-
+    //loop through all the images on the page and start the upload process  
 
     for (var i = 0; i < $scope.images.length; i++) {
+      //convert to base64
           function getBase64Image(img1) { 
             var canvas = document.createElement("canvas");
             canvas.width = img1.naturalHeight;
@@ -142,10 +135,12 @@ $scope.urlForImage = function(imageName) {
 
         }
 
-
+        //get value of the images
          var img1 = document.getElementById("object-" + i);
+         //build proper base64 link
          var imgData = 'data:image/jpg;base64,' + getBase64Image(img1);
-         console.log(img1);
+         //log data
+         //console.log(img1);
                 
       $http({
               method: 'POST',
@@ -160,6 +155,7 @@ $scope.urlForImage = function(imageName) {
  
           }).
         success(function (data, status, headers, config) {
+            swal("YES!", "Your Photos Are Now In TBS!", "success");
             console.log("success!");
             console.log(data);
         }).

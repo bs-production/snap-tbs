@@ -1,13 +1,16 @@
 <ion-view view-title="Newsletters">
    <ion-content class="padding" ng-controller="PostsCtrl">
+
     <ion-list>
       <ion-item  ng-repeat="title in titles">
-         {{title.title}}<br>
+         <a ng-click="openModal()" href="https://api.teambasementsystems.com/newsletters/?id={{title.id}}">{{title.title}}</a><br>
 		 {{title.date}}	
       </ion-item>
     </ion-list>
+
   </ion-content>
 </ion-view>
+
 
 
 

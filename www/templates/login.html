@@ -1,9 +1,9 @@
 <ion-view  hide-nav-bar="true" view-title="">
   <ion-content class="login-form">
   
-  <div class="row">
+  <div class="row login-screen">
      <div class="col">
-        <img src="img/team-bs-login.png" style="max-width:100%;" class="padding-vertical">
+        <img src="img/logo-long-white.png" style="max-width:100%;" class="padding-vertical">
      </div>
   </div>
     <form ng-submit="doLogin()" class=:"login-form">
@@ -16,7 +16,7 @@
         <label class="item item-input">
           <input type="password" placeholder="Password" ng-model="loginData.password">
         </label>
-        <label class="item">
+        <label class="item btn-wrap">
           <button class="button-block mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">Sign In</button>
         </label>
       </div>

@@ -5,8 +5,8 @@
 }
   .demo-card-wide > .mdl-card__title {
     color: #fff;
-    height: 225px;
-    background: url('../img/hero.png') center;
+        height: 140px;
+    background: url('../img/new-hero.png') center;
     background-size: cover;
   }
   .demo-card-square.mdl-card {
@@ -17,8 +17,7 @@
   }
   .demo-card-square > .mdl-card__title {
     color: #fff;
-    background:
-      url('../img/ba.png') top right 15% no-repeat #46B6AC;
+    background: #46B6AC;
         background-size: cover;
   }
 
@@ -27,6 +26,8 @@
 }
  
 
+
+ 
  
    .demo-card-event.mdl-card {
     width: 50%;
@@ -64,17 +65,37 @@
 
 /*login form */
 
+ .login-screen {
+    position: relative;
+    top: 50%;
+    transform: translateY(60%);
+ }
+
+ .login-form form {
+   position: relative;
+    top: 50%;
+    transform: translateY(60%);
+ }
+
+  .login-form button {
+  color: #fff;
+    background-color: #FF3333;
+ }
+
+
 .login-form {
-  background: radial-gradient(#35B6F2 36%, #2BA8E3 74%, #0C79B4 119%);
+         background: #1c2451;
 }
 
 .login-form .item {
   background-color: whitesmoke;
 }
 
-.dash-content {
-      background:#E2E2E2;
+.login-form .btn-wrap {
+  border:0;
+  background: transparent;
 }
+ 
 
 .mdl-button--accent.mdl-button--accent.mdl-button--raised {
     color: #fff;
