@@ -1,13 +1,110 @@
+/* Slideout Menu Styles */
+.bar.app-top-bar {
+  background-color: #FF4C4C !important; }
+  .bar.app-top-bar .title {
+    color: #FFFFFF !important; }
+    .bar.app-top-bar .title * {
+      color: #FFFFFF !important; }
+  .bar.app-top-bar .button {
+    color: #FFFFFF !important; }
+    .bar.app-top-bar .button * {
+      color: #FFFFFF !important; }
+
+ion-side-menu ion-content {
+    background-color: #23262a;
+}
+
+ion-side-menu ion-item.item .item-content {
+    background-color: #23262a;
+}
+
+
+ion-side-menu ion-item.item .item-content .icon:before {
+    background-color: #3E454C;
+    color: #FFFFFF;
+    border-radius: 50%;
+    font-size: 22px;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+}
+
+ion-side-menu ion-item.item .menu-text {
+    color: #cccccc;
+    font-weight: 500;
+}
+
+ion-side-menu .heading-item .greeting {
+    color: #FFFFFF;
+    font-weight: 500;
+}
+
+
 /* Dashboard Styles */
+
+.toggle-btn {
+      position: absolute;
+    top: 0px;
+    z-index: 1000;
+    font-size: 39px;
+    background: transparent;
+    color: white;
+    border: 0;
+    left: 6px;
+}
+ 
+  .cards {
+        background: #FFFFFF;
+    border-radius: 3px;
+    cursor: pointer;
+    height: 14em;
+    padding: 1.5em;
+    position: relative;
+    width: 45%;
+    text-align: center;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+    float: left;
+    margin: 15px 8px;
+}
+
+.cards .icon {
+    color: #E45171;
+    font-size: 4em;
+    text-align: center;
+    padding: 0em;
+    position: relative;
+    top: 0em;
+}
+
+.cards .title {
+    color: #999;
+    text-align: center;
+    font-weight: 300;
+    font-size: 1.79em;
+}
+
+.divider {
+    border-bottom: 1px solid #E45171;
+}
+
+
 .mdl-card {
 	width:auto;
   min-height: 100px;
 }
   .demo-card-wide > .mdl-card__title {
     color: #fff;
-        height: 140px;
+    height: 200px;
     background: url('../img/new-hero.png') center;
     background-size: cover;
+  }
+
+  .snap-it-hero {
+        background: url('https://unsplash.it/g/1000/300') center !important;
+  }
+
+    .newsletter-hero {
+        background: url('https://unsplash.it/g/1200/300') center !important;
   }
   .demo-card-square.mdl-card {
       width: 48%;
@@ -51,9 +148,6 @@
    color:#293462;
 }
 
-
-/* hambugrer color */
-
  
 
 /* button overider */
@@ -62,6 +156,8 @@
 .login-form .mdl-button {
      height:50px;
 }
+
+ 
 
 /*login form */
 
@@ -79,7 +175,7 @@
 
   .login-form button {
   color: #fff;
-    background-color: #FF3333;
+    background-color: #FF4C4C;
  }
 
 
@@ -99,7 +195,7 @@
 
 .mdl-button--accent.mdl-button--accent.mdl-button--raised {
     color: #fff;
-    background-color: #eec550;
+     background-color: #E45171;
 } 
 
 

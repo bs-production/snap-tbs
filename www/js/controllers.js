@@ -4,8 +4,17 @@ myApp.controller('AppCtrl', function($scope, $http,  $timeout) {
 
 });
 
+myApp.controller('PlayCtrl', function($scope, $ionicSideMenuDelegate) {
 
-myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $state, $filter) {
+ $scope.toggleLeftSideMenu = function() {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
+
+});
+
+myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $state, $filter, $ionicSideMenuDelegate) {
+
+
 // Form data for the login modal
   $scope.loginData = {};
 
@@ -34,8 +43,9 @@ myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $st
   };
 });
 
-myApp.controller("PostsCtrl", function($scope, $ionicModal, $http) {
+myApp.controller("PostsCtrl", function($scope, $ionicModal, $http, $ionicSideMenuDelegate) {
    //Get profile information
+
   $http.get('https://api.teambasementsystems.com/newsletters/').
     success(function(data, status, headers, config) {
       // this callback will be called asynchronously
@@ -49,11 +59,23 @@ myApp.controller("PostsCtrl", function($scope, $ionicModal, $http) {
   });
 
 
+$scope.newNews= function(href){
+        // how to get the href
+        $http.get(href).success(function(data) {
+          $scope.details = data;
+        })
+};
+
+    $scope.toggleLeftSideMenu = function() {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
+ 
+
 });
 
 
  
-myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevice, $cordovaFile, $cordovaFileTransfer, $ionicPlatform,  $ionicActionSheet, ImageService, FileService) {
+myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevice, $cordovaFile, $cordovaFileTransfer, $ionicPlatform,  $ionicActionSheet, ImageService, FileService, $ionicSideMenuDelegate) {
  
       
       //Get Values from local storage
@@ -75,6 +97,10 @@ myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevic
     $scope.images = FileService.images();
     $scope.$apply();
   });
+
+   $scope.toggleLeftSideMenu = function() {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
  
 
 $scope.urlForImage = function(imageName) {

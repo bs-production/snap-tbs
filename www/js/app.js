@@ -74,7 +74,7 @@ angular.module('starter', ['ionic','ngCordova', 'ngFileUpload', 'angular-loading
       views: {
         'menuContent': {
           templateUrl: "templates/dashboard.html",
-          //controller: 'PlaylistsCtrl'
+          controller: 'PlayCtrl'
         }
       }
     })

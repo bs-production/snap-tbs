@@ -1,64 +1,41 @@
-<ion-view view-title="Dashboard">
+<ion-view  hide-nav-bar="true" view-title="">
+  <ion-content ng-controller="PlayCtrl">
 
-<ion-content class="dash-content">
-<ion-list>
+     <button class="toggle-btn ion-navicon" ng-click="toggleLeftSideMenu()">
+        
+      </button>
 
-
-<div class="demo-card-wide mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Welcome</h2>
-  </div>
-  <div class="mdl-card__supporting-text">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    Mauris sagittis pellentesque lacus eleifend lacinia...
-  </div>
-  <div class="mdl-card__actions mdl-card--border">
-    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-     Help
-    </a>
-  </div>
- 
-</div>
-
-
-<div class="demo-card-square mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__title mdl-card--expand">
-    <h2 class="mdl-card__title-text">Snap It</h2>
-  </div>
-  <div class="mdl-card__supporting-text">
-    Get your photos into Team Basement Systems. Just tap it and snap it!
-  </div>
-  <div class="mdl-card__actions mdl-card--border">
-    <a href="/#/app/ba" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-     <i class="material-icons">camera_alt</i> <div style="margin: -7px 14px;float: right;">Snap It</div>
-    </a>
-  </div>
-</div>
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Welcome</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        Welcome to the Team Basement Systems App. A lot has changed and we will be adding new features very soon. If you have any questions or need assitance just hit the button below.
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+         Questions?
+        </a>
+      </div>
+     
+    </div>
 
 
-<div class="demo-card-square mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__title mdl-card--expand">
-    <h2 class="mdl-card__title-text">Newsletters</h2>
-  </div>
-  <div class="mdl-card__supporting-text">
-     Get all the updates and news from our the networks with the latest newsletters.
-  </div>
-  <div class="mdl-card__actions mdl-card--border">
-    <a href="/#/app/newsletter"  class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-      <i class="material-icons">folder_open</i><div style="margin: -7px 8px;float: right;">Read Updates</div>
-    </a>
-  </div>
-</div>
 
+    <div class="cards" href="/#/app/ba">
+        <i class="icon ion-ios-camera"></i>
+            <hr class="divider">
+            <h2 class="title">Snap It</h2>
+          </div>
 
- 
-	
- 
-	
-	
-</div>
-
-</div>
-</ion-list>
-</ion-content>
+    <div class="cards" href="/#/app/newsletter">
+    <i class="icon ion-ios-bookmarks-outline"></i>
+            <hr class="divider">
+            <h2 class="title">Newsletters</h2>
+          </div>
+     
+     
+  </ion-content>
 </ion-view>
+
+ 
