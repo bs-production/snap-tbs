@@ -6,7 +6,7 @@
         An companion application for Team Basement Systems.
     </description>
   <author email="jsiwicki@basementsystems.com" href="http://www.treehouseinternetgroup.com/">
-      John Siwicki + Nicole Lynch
+      John Siwicki
     </author>
   <content src="index.html"/>
   <access origin="*"/>

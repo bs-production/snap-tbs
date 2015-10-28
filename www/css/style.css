@@ -80,7 +80,7 @@ ion-side-menu .heading-item .greeting {
     color: #999;
     text-align: center;
     font-weight: 300;
-    font-size: 1.79em;
+    font-size: 1.49em;
 }
 
 .divider {
@@ -100,11 +100,11 @@ ion-side-menu .heading-item .greeting {
   }
 
   .snap-it-hero {
-        background: url('https://unsplash.it/g/1000/300') center !important;
+        background: url('../img/snapit-hero.jpg') center !important;
   }
 
-    .newsletter-hero {
-        background: url('https://unsplash.it/g/1200/300') center !important;
+  .newsletter-hero {
+        background: url('../img/newsletter-hero.jpg') center !important;
   }
   .demo-card-square.mdl-card {
       width: 48%;
@@ -112,6 +112,7 @@ ion-side-menu .heading-item .greeting {
       float: left;
       margin: 16px 3px;
   }
+  
   .demo-card-square > .mdl-card__title {
     color: #fff;
     background: #46B6AC;
@@ -121,9 +122,9 @@ ion-side-menu .heading-item .greeting {
 .main-card {
   margin: 10px;
 }
- 
-
-
+.mdl-card {
+  border-radius: 0;
+}
  
  
    .demo-card-event.mdl-card {

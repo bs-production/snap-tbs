@@ -30,10 +30,11 @@ myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $st
       .success(function(data) {
            if (data.isLoggedIn === true) {
               swal("Good job!", "You now loggedin!", "success");
-              $state.go("app.dashboard");
               console.log(data.message);
               localStorage.setItem('accessToken', JSON.stringify(data.accessToken));
               localStorage.setItem('company', JSON.stringify(data.company));
+              localStorage.setItem('name', JSON.stringify(data.userName));
+              $state.go("app.dashboard");
           }
           else {
               localStorage.clear();
@@ -43,37 +44,43 @@ myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $st
   };
 });
 
-myApp.controller("PostsCtrl", function($scope, $ionicModal, $http, $ionicSideMenuDelegate) {
+myApp.controller("PostsCtrl", function($scope, $http, $ionicSideMenuDelegate, $state, $rootScope) {
    //Get profile information
-
-  $http.get('https://api.teambasementsystems.com/newsletters/').
-    success(function(data, status, headers, config) {
-      // this callback will be called asynchronously
-      // when the response is available
-      //console.log(data);
-      $scope.titles = data;
-    }).
-  error(function(data, status, headers, config) {
-    // called asynchronously if an error occurs
-    // or server returns response with an error status.
+ $scope.myNews = true;
+   document.addEventListener('deviceready', function () {
+         $http({
+              method: 'GET',
+                 url: 'https://api.teambasementsystems.com/newsletters/'
+              }).success(function(data){
+              // With the data succesfully returned, call our callback
+                  $scope.titles = data;
+                  console.log(data);    
+            }).error(function(){
+                alert("error");
+            });
   });
 
-
-$scope.newNews= function(href){
-        // how to get the href
-        $http.get(href).success(function(data) {
-          $scope.details = data;
-        })
-};
-
-    $scope.toggleLeftSideMenu = function() {
+$scope.toggleLeftSideMenu = function() {
     $ionicSideMenuDelegate.toggleLeft();
   };
- 
+
+$scope.newNews= function(href){
+       $scope.myNews = false;
+            // how to get the href
+            $http.get(href).success(function(response) {
+               
+                console.log(response);
+                $rootScope.newTitle = "Hi, i'm $RootScope";
+                $rootScope.newTitle = response.title;
+                $rootScope.newBody = response.body_html;
+
+           
+          });
+
+            //$state.transitionTo('app.newsdetails');
+    };
 
 });
-
-
  
 myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevice, $cordovaFile, $cordovaFileTransfer, $ionicPlatform,  $ionicActionSheet, ImageService, FileService, $ionicSideMenuDelegate) {
  
@@ -87,10 +94,10 @@ myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevic
 
       //start the form data building
       $scope.imageData = {};
-      $scope.imageData.accessToken = '1147-a8dc987ce1981e9b61ea021a58234467';
+      $scope.imageData.accessToken = '1147-57840ed4bc7dfc1990f330878f4b2d0d';
       $scope.imageData.company = '1015';
       //delete this value to get the field to work
-      $scope.imageData.group = '22';
+      $scope.imageData.group = '';
 
 
   $ionicPlatform.ready(function() {

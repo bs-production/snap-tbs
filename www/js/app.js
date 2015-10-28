@@ -40,6 +40,16 @@ angular.module('starter', ['ionic','ngCordova', 'ngFileUpload', 'angular-loading
     }
   })
 
+    .state('app.newsdetails', {
+    url: "/newsletter",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/news-details.html",
+         controller: 'PostsCtrl'
+      }
+    }
+  })
+
   .state('app.login', {
     url: "/login",
     views: {

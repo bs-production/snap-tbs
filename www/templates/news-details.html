@@ -1,0 +1,17 @@
+<ion-view  hide-nav-bar="true" view-title="" ng-controller="PostsCtrl">
+  <ion-content>
+
+     <button class="toggle-btn ion-navicon" ng-click="toggleLeftSideMenu()"></button>
+
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title newsletter-hero">
+         <h2 class="mdl-card__title-text"> <span ng-bind="newTitle"></span> </h2>
+      </div>
+    </div>
+
+    <ion-item>   
+ 		     {{ newBody }}
+   </ion-item>
+        
+  </ion-content>
+</ion-view>

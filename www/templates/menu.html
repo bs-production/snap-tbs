@@ -23,30 +23,31 @@
               <!--<img class="user-image" ng-src="https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg" spinner-on-load>-->
             </pre-img>
           </div>
-          <h2 class="greeting">Hi {{name}}</h2>
+          <script>var retrievedData = localStorage.getItem("name");</script>
+          <h2 class="greeting">Hi <script>document.write(retrievedData)</script></h2>
           <p class="message">Welcome back</p>
         </ion-item>
 
 
 
        <ion-item class="item-icon-left" nav-clear menu-close href="#/app/login">
-          <i class="icon ion-gear-a"></i>
+          <i class="icon ion-unlocked"></i>
           <h2 class="menu-text">Login</h2>
         </ion-item>
 
       <ion-item class="item-icon-left" nav-clear menu-close href="#/app/dashboard">
-          <i class="icon ion-radio-waves"></i>
+          <i class="icon ion-grid"></i>
           <h2 class="menu-text">Dashboard</h2>
         </ion-item>
 
 
        <ion-item class="item-icon-left" nav-clear menu-close href="#/app/newsletter">
-          <i class="icon ion-bookmark"></i>
+          <i class="icon ion-ios-bookmarks-outline"></i>
           <h2 class="menu-text">Newsletters</h2>
         </ion-item>
 
       <ion-item class="item-icon-left" nav-clear menu-close href="#/app/ba">
-          <i class="icon ion-wand"></i>
+          <i class="icon ion-ios-camera"></i>
           <h2 class="menu-text">SnapIt</h2>
         </ion-item>
 
