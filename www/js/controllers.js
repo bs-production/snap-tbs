@@ -12,7 +12,7 @@ myApp.controller('PlayCtrl', function($scope, $ionicSideMenuDelegate) {
 
 });
 
-myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $state, $filter, $ionicSideMenuDelegate) {
+myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $rootScope, $timeout, $state, $filter, $ionicSideMenuDelegate) {
 
 
 // Form data for the login modal
@@ -29,11 +29,24 @@ myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $st
         })
       .success(function(data) {
            if (data.isLoggedIn === true) {
+              console.log(data)
+              localStorage.clear();
               swal("Good job!", "You now loggedin!", "success");
-              console.log(data.message);
+              //console.log(data.message);
+
               localStorage.setItem('accessToken', JSON.stringify(data.accessToken));
-              localStorage.setItem('company', JSON.stringify(data.company));
               localStorage.setItem('name', JSON.stringify(data.userName));
+
+
+          
+              var item_name = data.companies[0].company;
+              console.log(item_name);
+              localStorage.setItem('company', JSON.stringify(item_name.id) );
+
+              //Get User Name so we can display it
+              var userFName  = JSON.parse( localStorage.getItem('name') );
+              $rootScope.userFName = userFName;
+
               $state.transitionTo("app.dashboard");
           }
           else {
@@ -84,20 +97,17 @@ $scope.newNews= function(href){
 
 });
  
-myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevice, $cordovaFile, $cordovaFileTransfer, $ionicPlatform,  $ionicActionSheet, ImageService, FileService, $ionicSideMenuDelegate) {
+myApp.controller('imgController', function($scope, $http, $filter,  $cordovaCamera, $cordovaDevice, $cordovaFile, $cordovaFileTransfer, $ionicPlatform,  $ionicActionSheet, ImageService, FileService, $ionicSideMenuDelegate) {
  
       
       //Get Values from local storage
-      var token = localStorage.getItem('accessToken');
-      var company  = localStorage.getItem('company');
-
-      console.log(token);
-      console.log(company);
+      var token = JSON.parse( localStorage.getItem('accessToken') );
+      var company  = lJSON.parse( ocalStorage.getItem('company') );
 
       //start the form data building
       $scope.imageData = {};
       $scope.imageData.accessToken = '1147-38e5ca5669b20f6f97a4942e1b214e19';
-      $scope.imageData.company = '1015';
+      $scope.imageData.company = company;
       //delete this value to get the field to work
       $scope.imageData.group = '';
 
@@ -107,14 +117,18 @@ myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevic
     $scope.$apply();
   });
 
+
    $scope.toggleLeftSideMenu = function() {
     $ionicSideMenuDelegate.toggleLeft();
   };
  
 
 $scope.urlForImage = function(imageName) {
-     var name = imageName.substr(imageName.lastIndexOf('/') + 1);
-     var trueOrigin = cordova.file.dataDirectory + name;
+     // var name = imageName.substr(imageName.lastIndexOf('/') + 1);
+     // var trueOrigin = cordova.file.dataDirectory + name;
+     // return trueOrigin;
+
+     var trueOrigin = cordova.file.dataDirectory + imageName;
      return trueOrigin;
 };
 
@@ -134,8 +148,8 @@ $scope.urlForImage = function(imageName) {
   };
  
   $scope.addImage = function(type) {
-    $scope.hideSheet();
-    ImageService.handleMediaDialog(type).then(function() {
+        $scope.hideSheet();
+        ImageService.handleMediaDialog(type).then(function() {
         $scope.$apply();
     });
   };
@@ -150,7 +164,6 @@ $scope.urlForImage = function(imageName) {
     document.addEventListener('deviceready', function () {
 
       var uploadUrl = 'https://api.teambasementsystems.com/image/upload';
-
 
     //loop through all the images on the page and start the upload process  one image per updload
 
@@ -172,6 +185,7 @@ $scope.urlForImage = function(imageName) {
          var img1 = document.getElementById("object-" + i);
          //build proper base64 link
          var imgData = 'data:image/jpg;base64,' + getBase64Image(img1);
+
          //log data
          //console.log(img1);
                 

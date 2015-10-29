@@ -48,6 +48,8 @@ myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $co
       case 1:
         source = Camera.PictureSourceType.PHOTOLIBRARY;
         break;
+        default:
+        source = Camera.PictureSourceType.CAMERA;
     }
     return {
       quality: 50,
@@ -57,7 +59,7 @@ myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $co
       allowEdit: false,
       encodingType: Camera.EncodingType.JPEG,
       popoverOptions: CameraPopoverOptions,
-      saveToPhotoAlbum: false
+      saveToPhotoAlbum: true
     };
     
   }
