@@ -34,7 +34,7 @@ myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $timeout, $st
               localStorage.setItem('accessToken', JSON.stringify(data.accessToken));
               localStorage.setItem('company', JSON.stringify(data.company));
               localStorage.setItem('name', JSON.stringify(data.userName));
-              $state.go("app.dashboard");
+              $state.transitionTo("app.dashboard");
           }
           else {
               localStorage.clear();
@@ -64,20 +64,22 @@ $scope.toggleLeftSideMenu = function() {
     $ionicSideMenuDelegate.toggleLeft();
   };
 
+  $scope.go = function() {
+    //Psuedo Back Button
+   $scope.myNews = true;
+  }
+
 $scope.newNews= function(href){
        $scope.myNews = false;
-            // how to get the href
+            // Get the link of what is click and perform request
             $http.get(href).success(function(response) {
                
-                console.log(response);
-                $rootScope.newTitle = "Hi, i'm $RootScope";
+                //Store Responses so we can easily grab later
                 $rootScope.newTitle = response.title;
                 $rootScope.newBody = response.body_html;
 
            
           });
-
-            //$state.transitionTo('app.newsdetails');
     };
 
 });
@@ -94,7 +96,7 @@ myApp.controller('imgController', function($scope, $http, $filter, $cordovaDevic
 
       //start the form data building
       $scope.imageData = {};
-      $scope.imageData.accessToken = '1147-57840ed4bc7dfc1990f330878f4b2d0d';
+      $scope.imageData.accessToken = '1147-38e5ca5669b20f6f97a4942e1b214e19';
       $scope.imageData.company = '1015';
       //delete this value to get the field to work
       $scope.imageData.group = '';
@@ -147,12 +149,10 @@ $scope.urlForImage = function(imageName) {
 
     document.addEventListener('deviceready', function () {
 
-     
-
       var uploadUrl = 'https://api.teambasementsystems.com/image/upload';
 
 
-    //loop through all the images on the page and start the upload process  
+    //loop through all the images on the page and start the upload process  one image per updload
 
     for (var i = 0; i < $scope.images.length; i++) {
       //convert to base64

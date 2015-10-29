@@ -1,7 +1,8 @@
 <ion-view  hide-nav-bar="true" view-title="" ng-controller="PostsCtrl">
   <ion-content>
 
-     <button class="toggle-btn ion-navicon" ng-click="toggleLeftSideMenu()"></button>
+     <button class="toggle-btn ion-navicon" ng-click="toggleLeftSideMenu()" ng-show="myNews"></button>
+     <button class="toggle-btn ion-arrow-left-a" ng-click="go()" ng-hide="myNews" ></button>
 
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
       <div class="mdl-card__title newsletter-hero">
@@ -9,6 +10,7 @@
       </div>
     </div>
 
+   
     <ion-list id="full-list" ng-show="myNews">
       <ion-item id="newslist"  ng-repeat="title in titles">
          <a ng-click="newNews($event.target.href);$event.preventDefault()" 
@@ -21,11 +23,9 @@
 
     <ion-list id="detail">
       <ion-item>   
-       <span class="ion-arrow-left-a"></span>
          {{ newTitle }} <br>
          <div ng-bind-html="newBody"></div>
    </ion-item>
-
   </ion-list>
 
 

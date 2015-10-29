@@ -50,7 +50,7 @@ myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $co
         break;
     }
     return {
-      quality: 60,
+      quality: 50,
       targetWidth: 800,
       destinationType: Camera.DestinationType.FILE_URI,
       sourceType: source,
