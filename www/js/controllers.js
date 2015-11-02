@@ -29,16 +29,15 @@ myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $rootScope, $
         })
       .success(function(data) {
            if (data.isLoggedIn === true) {
-              console.log(data)
+
               localStorage.clear();
               swal("Good job!", "You now loggedin!", "success");
               //console.log(data.message);
-
               localStorage.setItem('accessToken', JSON.stringify(data.accessToken));
               localStorage.setItem('name', JSON.stringify(data.userName));
 
 
-          
+              //Get the Company ID number in the Array 
               var item_name = data.companies[0].company;
               console.log(item_name);
               localStorage.setItem('company', JSON.stringify(item_name.id) );
@@ -46,7 +45,6 @@ myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $rootScope, $
               //Get User Name so we can display it
               var userFName  = JSON.parse( localStorage.getItem('name') );
               $rootScope.userFName = userFName;
-
               $state.transitionTo("app.dashboard");
           }
           else {
@@ -97,31 +95,56 @@ $scope.newNews= function(href){
 
 });
  
-myApp.controller('imgController', function($scope, $http, $filter,  $cordovaCamera, $cordovaDevice, $cordovaFile, $cordovaFileTransfer, $ionicPlatform,  $ionicActionSheet, ImageService, FileService, $ionicSideMenuDelegate) {
+myApp.controller('imgController', function($scope, $http, $rootScope, $filter,  $cordovaCamera, $cordovaDevice, $cordovaFile, $ionicPlatform,  $ionicActionSheet, ImageService, FileService, $ionicSideMenuDelegate) {
  
-      
-      //Get Values from local storage
+
+  $scope.images2 = [];
+  
+  
+  $scope.selImages = function() {
+    
+    var options = {
+      quality: 50,
+      destinationType: Camera.DestinationType.FILE_URI,
+      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+      targetWidth: 200,
+      targetHeight: 200
+    };
+
+    $cordovaCamera.getPicture(options).then(function(imageUri) {
+      console.log('img', imageUri);
+      $scope.images2.push(imageUri);
+          
+    }, function(err) {
+    // error
+    });
+
+  };
+
+
+     $ionicPlatform.ready(function() {
+      $scope.images = FileService.images();
+      $scope.$apply();
+    });
+
+      //Make Left Nav work
+      $scope.toggleLeftSideMenu = function() {
+        $ionicSideMenuDelegate.toggleLeft();
+      };
+
+
+      //Get Values from local storage parse them to remove quotes
       var token = JSON.parse( localStorage.getItem('accessToken') );
-      var company  = lJSON.parse( ocalStorage.getItem('company') );
+      var company  = JSON.parse( localStorage.getItem('company') );
 
       //start the form data building
       $scope.imageData = {};
-      $scope.imageData.accessToken = '1147-38e5ca5669b20f6f97a4942e1b214e19';
+      $scope.imageData.accessToken = token;
       $scope.imageData.company = company;
       //delete this value to get the field to work
       $scope.imageData.group = '';
 
 
-  $ionicPlatform.ready(function() {
-    $scope.images = FileService.images();
-    $scope.$apply();
-  });
-
-
-   $scope.toggleLeftSideMenu = function() {
-    $ionicSideMenuDelegate.toggleLeft();
-  };
- 
 
 $scope.urlForImage = function(imageName) {
      // var name = imageName.substr(imageName.lastIndexOf('/') + 1);
@@ -188,7 +211,9 @@ $scope.urlForImage = function(imageName) {
 
          //log data
          //console.log(img1);
-                
+         
+
+        //Send Data To Our Server         
       $http({
               method: 'POST',
               url: uploadUrl,

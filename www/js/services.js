@@ -12,13 +12,12 @@ myServices.factory('FileService', function() {
         images = [];
     }
     return images;
-  };
+  }
  
   function addImage(img) {
     images.push(img);
     window.localStorage.setItem(IMAGE_STORAGE_KEY, JSON.stringify(images) );
-  };
-
+  }
   return {
     storeImage: addImage,
     images: getImages
@@ -59,7 +58,7 @@ myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $co
       allowEdit: false,
       encodingType: Camera.EncodingType.JPEG,
       popoverOptions: CameraPopoverOptions,
-      saveToPhotoAlbum: true
+      saveToPhotoAlbum: false
     };
     
   }
@@ -83,11 +82,11 @@ myServices.factory('ImageService', function($cordovaCamera, FileService, $q, $co
           });
 
       });
-    })
+    });
   }
   return {
     handleMediaDialog: saveMedia
-  }
+  };
 });
 
 

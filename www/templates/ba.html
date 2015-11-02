@@ -1,64 +1,55 @@
 <ion-view  hide-nav-bar="true" view-title="">
-  <ion-content ng-controller="imgController">
-     <button class="toggle-btn ion-navicon" ng-click="toggleLeftSideMenu()">
-      </button>
-
-
-    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
-      <div class="mdl-card__title snap-it-hero">
-        <h2 class="mdl-card__title-text">Snap It</h2>
-      </div>
-      <div class="mdl-card__supporting-text">
-        Enter a unquine name or number for the photos you want to upload. You can only upload 4 images at a time. 
-      </div>
+<ion-content ng-controller="imgController">
+<button class="toggle-btn ion-navicon" ng-click="toggleLeftSideMenu()">
+</button>
+<div class="demo-card-wide mdl-card mdl-shadow--2dp">
+  <div class="mdl-card__title snap-it-hero">
+    <h2 class="mdl-card__title-text">Snap It</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+    Enter a unquine name or number for the photos you want to upload. You can only upload 4 images at a time.
+  </div>
   
-     
-    </div>
-
- 
-
+  
+</div>
 
 <div class="padding">
- 
- <form name="form" >
-        <div class="list">
-          <label class="item item-input">
-            <input type="text" placeholder="Job ID" ng-model="imageData.group">
-          </label>
-        </div>
-      <button class="button button-full button-calm"  ng-click="addMedia()">
-      Take Picture
-      </button>
+  
+  <form name="form" >
+    <div class="list">
+      <label class="item item-input">
+        <input type="text" placeholder="Job ID" ng-model="imageData.group">
+      </label>
+    </div>
+    <button class="button button-full button-calm"  ng-click="addMedia()">
+    Take Picture
+    </button>
+
+    <button class="button button-block button-balanced" ng-click="selImages()">
+      Select Images
+    </button>
 
 
+    <p ng-repeat="img in images2">
+      <img ng-src="{{img}}" />
+       <a ng-click="remove(images, $index)">Delete</a>
+    </p>
+       
 
     <div class="row">
       <div class="col-50" ng-repeat="image in images| limitTo: 4">
-
-     
-
-         <img ng-attr-id="{{ 'object-' + $index }}"  
-         ng-src="{{urlForImage(image)}}" style="width: 175px; height: 220px; padding: 5px;"/>
-
-         <a ng-click="remove(images, $index)">Delete</a>
-
+        
+        <img ng-attr-id="{{ 'object-' + $index }}"
+        ng-src="{{urlForImage(image)}}" style="width: 175px; height: 220px; padding: 5px;"/>
+        <a ng-click="remove(images, $index)">Delete</a>
       </div>
     </div>
-
-     <button  class="button button-full button-assertive" ng-click="megaUpload()">
-        Upload to TBS
-      </button>
-
+    <button  class="button button-full button-assertive" ng-click="megaUpload()">
+    Upload to TBS
+    </button>
     Total Images : {{images.length}} | 4
-
   </form>
-  </div>
+</div>
 
-
-
- 
-  </ion-content>
+</ion-content>
 </ion-view>
-
-
-

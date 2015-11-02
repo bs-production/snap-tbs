@@ -19,16 +19,15 @@
     "cordova-plugin-device",
     "cordova-plugin-console",
     "cordova-plugin-whitelist",
-    "cordova-plugin-file",
     "cordova-plugin-splashscreen",
     "com.ionic.keyboard",
     "org.apache.cordova.file-transfer",
     "org.apache.cordova.file",
     "cordova-plugin-statusbar",
-    "org.apache.cordova.network-information"
+    "org.apache.cordova.network-information",
+    "cordova-plugin-file"
   ],
   "cordovaPlatforms": [
-    "android",
-    "ios"
+    "android"
   ]
 }
