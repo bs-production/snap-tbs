@@ -4,11 +4,20 @@ myApp.controller('AppCtrl', function($scope, $http,  $timeout) {
 
 });
 
-myApp.controller('PlayCtrl', function($scope, $ionicSideMenuDelegate) {
+myApp.controller('PlayCtrl', function($scope, $ionicSideMenuDelegate, $state) {
 
  $scope.toggleLeftSideMenu = function() {
     $ionicSideMenuDelegate.toggleLeft();
   };
+
+ $scope.goSnap = function() {
+    $state.transitionTo("app.ba");
+  };
+
+ $scope.goRead = function() {
+    $state.transitionTo("app.newsletter");
+  };
+
 
 });
 
@@ -104,11 +113,10 @@ myApp.controller('imgController', function($scope, $http, $rootScope, $filter,  
   $scope.selImages = function() {
     
     var options = {
-      quality: 50,
+      quality: 80,
       destinationType: Camera.DestinationType.FILE_URI,
       sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-      targetWidth: 200,
-      targetHeight: 200
+      targetWidth: 800
     };
 
     $cordovaCamera.getPicture(options).then(function(imageUri) {

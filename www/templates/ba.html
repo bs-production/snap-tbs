@@ -30,9 +30,10 @@
     </button>
 
 
+<!--Images from Camera roll -->
     <p ng-repeat="img in images2">
-      <img ng-src="{{img}}" />
-       <a ng-click="remove(images, $index)">Delete</a>
+      <img ng-src="{{img}}" ng-attr-id="{{ 'oblib-' + $index }}"   style="width: 175px; height: 220px; padding: 5px;"/>
+       <a ng-click="remove(images2, $index)">Delete</a>
     </p>
        
 
