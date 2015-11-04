@@ -6,17 +6,17 @@ myApp.controller('AppCtrl', function($scope, $http,  $timeout) {
 
 myApp.controller('PlayCtrl', function($scope, $ionicSideMenuDelegate, $state) {
 
- $scope.toggleLeftSideMenu = function() {
-    $ionicSideMenuDelegate.toggleLeft();
-  };
+     $scope.toggleLeftSideMenu = function() {
+        $ionicSideMenuDelegate.toggleLeft();
+      };
 
- $scope.goSnap = function() {
-    $state.transitionTo("app.ba");
-  };
+     $scope.goSnap = function() {
+        $state.transitionTo("app.ba");
+      };
 
- $scope.goRead = function() {
-    $state.transitionTo("app.newsletter");
-  };
+     $scope.goRead = function() {
+        $state.transitionTo("app.newsletter");
+      };
 
 
 });
@@ -107,27 +107,28 @@ $scope.newNews= function(href){
 myApp.controller('imgController', function($scope, $http, $rootScope, $filter,  $cordovaCamera, $cordovaDevice, $cordovaFile, $ionicPlatform,  $ionicActionSheet, ImageService, FileService, $ionicSideMenuDelegate) {
  
 
+//takes images from the libary and displays them
   $scope.images2 = [];
   
   
-  $scope.selImages = function() {
-    
-    var options = {
-      quality: 80,
-      destinationType: Camera.DestinationType.FILE_URI,
-      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-      targetWidth: 800
+    $scope.selImages = function() {
+      
+      var options = {
+        quality: 80,
+        destinationType: Camera.DestinationType.FILE_URI,
+        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+        targetWidth: 800
+      };
+
+      $cordovaCamera.getPicture(options).then(function(imageUri) {
+        console.log('img', imageUri);
+        $scope.images2.push(imageUri);
+            
+      }, function(err) {
+      // error
+      });
+
     };
-
-    $cordovaCamera.getPicture(options).then(function(imageUri) {
-      console.log('img', imageUri);
-      $scope.images2.push(imageUri);
-          
-    }, function(err) {
-    // error
-    });
-
-  };
 
 
      $ionicPlatform.ready(function() {
@@ -154,29 +155,29 @@ myApp.controller('imgController', function($scope, $http, $rootScope, $filter,  
 
 
 
-$scope.urlForImage = function(imageName) {
-     // var name = imageName.substr(imageName.lastIndexOf('/') + 1);
-     // var trueOrigin = cordova.file.dataDirectory + name;
-     // return trueOrigin;
+      $scope.urlForImage = function(imageName) {
+           // var name = imageName.substr(imageName.lastIndexOf('/') + 1);
+           // var trueOrigin = cordova.file.dataDirectory + name;
+           // return trueOrigin;
 
-     var trueOrigin = cordova.file.dataDirectory + imageName;
-     return trueOrigin;
-};
+           var trueOrigin = cordova.file.dataDirectory + imageName;
+           return trueOrigin;
+      };
 
 
- $scope.addMedia = function() {
-    $scope.hideSheet = $ionicActionSheet.show({
-      buttons: [
-        { text: 'Take photo' },
-        { text: 'Photo from library' }
-      ],
-      titleText: 'Upload Images',
-      cancelText: 'Cancel',
-      buttonClicked: function(index) {
-        $scope.addImage(index);
-      }
-    });
-  };
+     $scope.addMedia = function() {
+        $scope.hideSheet = $ionicActionSheet.show({
+          buttons: [
+            { text: 'Take photo' }
+            //{ text: 'Photo from library' }
+          ],
+          titleText: 'Camera',
+          cancelText: 'Cancel',
+          buttonClicked: function(index) {
+            $scope.addImage(index);
+          }
+        });
+      };
  
   $scope.addImage = function(type) {
         $scope.hideSheet();
