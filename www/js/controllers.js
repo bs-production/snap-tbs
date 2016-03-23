@@ -40,7 +40,7 @@ myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $rootScope, $
            if (data.isLoggedIn === true) {
 
               localStorage.clear();
-              swal("Good job!", "You now loggedin!", "success");
+              alert('Success! You now loggedin');
               //console.log(data.message);
               localStorage.setItem('accessToken', JSON.stringify(data.accessToken));
               localStorage.setItem('name', JSON.stringify(data.userName));
@@ -58,7 +58,7 @@ myApp.controller('loginCtrl', function($scope, $http, $ionicModal, $rootScope, $
           }
           else {
               localStorage.clear();
-              sweetAlert(data.message);
+              alert(data.message);
           }
         });
   };
